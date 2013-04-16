@@ -14,16 +14,17 @@ namespace GroupMessage.Server
             var server = new NancyHost(new Uri("http://localhost:8282"));
             server.Start();
             Console.WriteLine("started!");
-            Console.WriteLine("press any key to exit");
 
 			if(Environment.OSVersion.Platform == PlatformID.Win32NT)
 			{
+				Console.WriteLine("press any key to exit");
 				Console.ReadKey();    
 			}
 			else
 			{
 				//Under mono if you deamonize a process a Console.ReadLine with cause an EOF 
 				//so we need to block another way
+				Console.WriteLine("kill to exit");
 				while(true) Thread.Sleep(10000000);	
 			}
 			
