@@ -1,10 +1,11 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace GroupMessage.Server.Model
 {
-    //todo should contain entity id
-    public class EntityBase
+    public abstract class EntityBase : IEntity
     {
+        [BsonId]
         public ObjectId Id { get; set; }
     }
 }

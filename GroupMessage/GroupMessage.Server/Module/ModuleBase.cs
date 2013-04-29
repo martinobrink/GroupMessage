@@ -1,6 +1,6 @@
 ﻿using Nancy;
 
-namespace GroupMessage.Server.Modules
+namespace GroupMessage.Server.Module
 {
     public abstract class ModuleBase : NancyModule
     {
