@@ -18,9 +18,8 @@ namespace GroupMessage.Server.Module
 
             Get["/user"] = _ =>
                 {
-                    var users = _userRepository.Users;
                     var stringBuilder = new StringBuilder();
-                    foreach (var user in users.AsQueryable())
+                    foreach (var user in _userRepository.Users.AsQueryable())
                     {
                         stringBuilder.AppendLine(string.Format("<li>Name: {0} {1}, Email: {2} </li>", user.Name, user.SurName, user.Email));
                     }
