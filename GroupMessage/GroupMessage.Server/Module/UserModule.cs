@@ -2,7 +2,6 @@
 using System.Text;
 using GroupMessage.Server.Model;
 using GroupMessage.Server.Repository;
-using MongoDB.Driver;
 using Nancy.ModelBinding;
 using MongoDB.Driver.Linq;
 
