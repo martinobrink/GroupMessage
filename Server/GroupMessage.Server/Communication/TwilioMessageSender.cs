@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Twilio;
@@ -11,7 +13,18 @@ namespace GroupMessage.Server.Communication
 
         public TwilioMessageSender()
         {
-            var twilioConfigLines = File.ReadLines("Twilio.txt").ToList();
+            List<string> twilioConfigLines;
+            try
+            {
+                twilioConfigLines = File.ReadLines("Twilio.txt").ToList();
+            }
+            catch (Exception exception)
+            {
+                var errorMessage = string.Format("Something failed during reading of file Twilio.txt! Did you forget to add a Twilio.txt to the same directory as the application? Exception: {0}", exception.Message);
+                Console.WriteLine(errorMessage);
+                throw new InvalidOperationException(errorMessage);
+            }
+
             var accountSID = twilioConfigLines[0].Split('=')[1];
             var authToken = twilioConfigLines[1].Split('=')[1];
             _senderNumber = twilioConfigLines[2].Split('=')[1];
