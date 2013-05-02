@@ -17,13 +17,8 @@ namespace GroupMessage.Server.Test.Module
 			Db.EntityCollection.Insert(new User {Name = "Name2", LastName = "Surname2", Email = "email2@mail.dk"});
 
             // ACT
-            Nancy.Testing.BrowserResponse response = Browser.Put("/groupmessage/message/1234", with =>
-            {
-                with.HttpRequest();
-				with.Body("{'MessageId':'1234', 'Text': 'MyTestText'}");
-                with.Header("Content-Type", "application/json");
-            });
-
+            Nancy.Testing.BrowserResponse response = Browser.Put("/groupmessage/message/1234", "{'MessageId':'1234', 'Text': 'MyTestText'}");
+            
             // ASSERT
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(SpyingMessageSender.NumberOfCalls, Is.EqualTo (2));
@@ -39,11 +34,7 @@ namespace GroupMessage.Server.Test.Module
 			Db.EntityCollection.Insert(new User {Name = "Name2", LastName = "Surname2", Email = "email2@mail.dk"});
 
 			// ACT
-			Nancy.Testing.BrowserResponse response = Browser.Put("/groupmessage/message/8989", with =>
-			                                       {
-				with.HttpRequest();
-				with.Body("{'MessageId':'4567','Text': 'MyTestText'}");
-			});
+			Nancy.Testing.BrowserResponse response = Browser.Put("/groupmessage/message/8989", "{'MessageId':'4567','Text': 'MyTestText'}");
 			
 			// ASSERT
 			Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));

@@ -18,11 +18,7 @@ namespace GroupMessage.Server.Test.Module
             Db.EntityCollection.Insert(new User {Name = "Name2", LastName = "Lastname2", PhoneNumber = "11111111", Email = "email2@mail.dk"});
 
             // ACT
-            var response = Browser.Get("/groupmessage/user", with =>
-            {
-                with.HttpRequest();
-                with.Header("accept", "application/json");
-            });
+            var response = Browser.Get("/groupmessage/user");
 
             // ASSERT
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
