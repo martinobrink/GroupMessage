@@ -8,6 +8,10 @@ using Android.Util;
 // Android does not allow permissions to start with an upper case letter
 // If it does you will get a very cryptic error in logcat and it will not be obvious why you are crying!
 // So please, for the love of all that is kind on this earth, use a LOWERCASE first letter in your Package Name!!!!
+using System.Net;
+using System;
+
+
 [assembly: Permission(Name = "@PACKAGE_NAME@.permission.C2D_MESSAGE")] //, ProtectionLevel = Android.Content.PM.Protection.Signature)]
 [assembly: UsesPermission(Name = "@PACKAGE_NAME@.permission.C2D_MESSAGE")]
 [assembly: UsesPermission(Name = "com.google.android.c2dm.permission.RECEIVE")]
@@ -52,10 +56,10 @@ namespace GroupMessage
 			Log.Verbose(PushHandlerBroadcastReceiver.TAG, "GCM Registered: " + registrationId);
 			var osVersion = Android.OS.Build.VERSION.Release;
 			var phoneNumberFromPreferences = Preferences.GetString(Constants.PREF_PHONE_NUMBER, null);
+			var json = "{\"PhoneNumber\": \""+phoneNumberFromPreferences+"\", \"DeviceToken\": \""+registrationId+"\", \"DeviceOs\": \"Android\"}";
 			//Send back to the server
-			//	var wc = new WebClient();
-			//	var result = wc.UploadString("http://your.server.com/api/register/", "POST", 
-			//		"{ 'registrationId' : '" + registrationId + "' }");
+			var wc = new WebClient();
+			var result = wc.UploadString("http://home.obrink-hansen.dk:8282/groupmessage/user/"+phoneNumberFromPreferences, "PUT", json);
 
 			createNotification("PushSharp-GCM Registered...", "The device has been Registered, Tap to View! Id = " + registrationId);
 		}
