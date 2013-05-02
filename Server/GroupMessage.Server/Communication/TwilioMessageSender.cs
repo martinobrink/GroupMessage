@@ -35,10 +35,10 @@ namespace GroupMessage.Server.Communication
         public void Send(Model.User user, string text)
         {
             Console.WriteLine("About to send message " + text + " to user " + user.Name);
-            
-            var status = Client.SendSmsMessage(SenderNumber, user.PhoneNumber, text);
-            
-            if (status.Status != "sent") 
+
+            var status = _client.SendSmsMessage(_senderNumber, user.PhoneNumber, text);
+
+            if (status.Status != "sent" && status.Status != "queued") 
             {
                 var errorMsg = "Unable to send sms to user " + user.Name + ", status is " + status.Status + ", exception is " + status.RestException.Message;
                 Console.WriteLine (errorMsg);
