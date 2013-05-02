@@ -13,8 +13,8 @@ namespace GroupMessage.Server.Test.Module
         public void PUT_ShouldSendMessageToAllUsersInDatabase()
         {
             // ARRANGE
-            Db.EntityCollection.Insert(new User {Name = "Name1", SurName = "Surname1", Email = "email1@mail.dk"});
-            Db.EntityCollection.Insert(new User {Name = "Name2", SurName = "Surname2", Email = "email2@mail.dk"});
+            Db.EntityCollection.Insert(new User {Name = "Name1", LastName = "Surname1", Email = "email1@mail.dk"});
+			Db.EntityCollection.Insert(new User {Name = "Name2", LastName = "Surname2", Email = "email2@mail.dk"});
 
 			var msg = new Message {MessageId="1234", Text="MyTestText"};
 
