@@ -29,7 +29,8 @@ namespace GroupMessage.Server.Test
                     with.Dependency<IMongoDbWrapper<User>>(new MongoDbWrapper<User>(database));
                     
                     with.Module<UserModule>();
-                });
+					with.Module<MessageModule>();
+			});
             
             Browser = new Browser(bootstrapper);
             Db = new MongoDbWrapper<TEntity>(database);
