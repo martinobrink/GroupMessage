@@ -36,11 +36,8 @@
         public static Nancy.Testing.BrowserResponse Delete(this Nancy.Testing.Browser browser, string route)
         {
             return browser.Delete(route, with =>
-                               {
+            {
                 with.HttpRequest();
-/*                with.Header("accept", "application/json");
-                with.Header("Content-Type", "application/json");
-                with.Body(bodyContent);*/
             });
         }
     }
