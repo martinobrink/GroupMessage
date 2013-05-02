@@ -42,9 +42,9 @@ function ContactViewCtrl($scope, $http) {
 
 }
 
-HomeViewCtrl.$inject = ['$scope', '$http'];
+MessagesViewCtrl.$inject = ['$scope', '$http'];
 
-function HomeViewCtrl($scope, $http) {
+function MessagesViewCtrl($scope, $http) {
 
     $scope.lastForm = {};
 
@@ -69,3 +69,32 @@ function HomeViewCtrl($scope, $http) {
 
 }
 
+UsersViewCtrl.$inject = ['$scope', '$http'];
+
+function UsersViewCtrl($scope, $http) {
+
+    $scope.lastForm = {};
+
+    $scope.init = function () {
+        var url = "http://localhost:8282/groupmessage/user/";
+
+        var client = new XMLHttpRequest();
+
+        client.open("GET", url, false);
+
+        client.setRequestHeader("Content-Type", "application/json");
+
+        client.send();
+
+        if (client.status == 200) {
+            $scope.users=JSON.parse(client.responseText);
+        }
+        else
+            alert("The request did not succeed!\n\nThe response status was: " + client.status + " " + client.statusText + ".");
+    };
+
+    $scope.deleteUser = function(phoneNumber) {
+        alert("will delete user with tlf." + phoneNumber);
+    }
+
+}
