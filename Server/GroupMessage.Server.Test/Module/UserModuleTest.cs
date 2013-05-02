@@ -1,7 +1,6 @@
 ﻿using GroupMessage.Server.Model;
 using NUnit.Framework;
 using Nancy;
-using Nancy.Testing;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,7 +21,7 @@ namespace GroupMessage.Server.Test.Module
 
             // ASSERT
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            var users = response.Body.DeserializeJson<List<User>>();
+            var users = response.Body.UnmarshallJson<List<User>>();
             Assert.That(users.Count, Is.EqualTo(2));
             Assert.That(users.Count(user => user.Name == "Name1"), Is.EqualTo(1));
             Assert.That(users.Count(user => user.Name == "Name2"), Is.EqualTo(1));

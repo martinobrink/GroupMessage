@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Module\BrowserExtensions.cs" />
+    <Compile Include="Module\BrowserResponseBodyWrapperExtensions.cs" />
     <Compile Include="Module\UserModuleTest.cs" />
     <Compile Include="NancyIntegrationTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
