@@ -1,4 +1,5 @@
-﻿using GroupMessage.Server.Model;
+﻿using System;
+using GroupMessage.Server.Model;
 using NUnit.Framework;
 using Nancy;
 using System.Collections.Generic;
@@ -40,7 +41,8 @@ namespace GroupMessage.Server.Test.Module
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
             var users = Browser.Get("/groupmessage/user").Body.UnmarshallJson<List<User>>();
             Assert.That(users.Count, Is.EqualTo(1));
-            Assert.That(users.Count(user => user.Name == "Name1"), Is.EqualTo(1));
+            Assert.That(users.Single().Name, Is.EqualTo("Name1"));
+            Assert.That(users.Single().LastUpdate, Is.InRange(DateTime.UtcNow.AddMinutes(-1), DateTime.UtcNow));
         }
 
         [Test]
@@ -57,7 +59,8 @@ namespace GroupMessage.Server.Test.Module
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             var users = Browser.Get("/groupmessage/user").Body.UnmarshallJson<List<User>>();
             Assert.That(users.Count, Is.EqualTo(1));
-            Assert.That(users.Count(user => user.Name == "Name2"), Is.EqualTo(1));
+            Assert.That(users.Single().Name, Is.EqualTo("Name2"));
+            Assert.That(users.Single().LastUpdate, Is.InRange(DateTime.UtcNow.AddMinutes(-1), DateTime.UtcNow));
         }
 
         [Test]

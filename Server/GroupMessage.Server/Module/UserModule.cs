@@ -35,6 +35,7 @@ namespace GroupMessage.Server.Module
                         return new Response().Create(HttpStatusCode.BadRequest, "Did you forget to set PhoneNumber? Json received: " + Request.Body.GetAsString());
                     }
 
+                    user.LastUpdate = DateTime.UtcNow;
                     var existingUser = _userRepository.GetByPhoneNumber(user.PhoneNumber);
                     if (existingUser == null)
                     {
