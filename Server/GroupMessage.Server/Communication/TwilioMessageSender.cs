@@ -36,7 +36,7 @@ namespace GroupMessage.Server.Communication
         {
             Console.WriteLine("About to send message " + text + " to user " + user.Name);
 
-            var status = _client.SendSmsMessage(_senderNumber, user.PhoneNumber, text);
+            var status = _client.SendSmsMessage(_senderNumber, "+45 "+user.PhoneNumber, text);
 
             if (status.Status != "sent" && status.Status != "queued") 
             {
