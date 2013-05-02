@@ -48,11 +48,5 @@ namespace GroupMessage.Server.Test.Module
 			// ASSERT
 			Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
 		}
-
-		string AsString (Nancy.Testing.BrowserResponseBodyWrapper body)
-		{
-			return System.Text.Encoding.UTF8.GetString(System.Linq.Enumerable.ToArray<byte>((IEnumerable <byte>)body));
-		}
-
     }
 }
