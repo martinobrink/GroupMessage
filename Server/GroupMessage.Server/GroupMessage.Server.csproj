@@ -78,6 +78,7 @@
     <Compile Include="Model\Message.cs" />
     <Compile Include="Module\MessageModule.cs" />
     <Compile Include="Communication\TwilioMessageSender.cs" />
+    <Compile Include="LoggingErrorHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
