@@ -31,7 +31,7 @@ namespace GroupMessage.Server.Test.Module
         }
 
 		[Test]
-		public void PUT_ResultsInBadRequestForIdMisMatch()
+		public void PUT_IdMisMatch_ShouldReturnBadRequest()
 		{
 			// ARRANGE
 			Db.EntityCollection.Insert(new User {Name = "Name1", LastName = "Surname1", Email = "email1@mail.dk"});
