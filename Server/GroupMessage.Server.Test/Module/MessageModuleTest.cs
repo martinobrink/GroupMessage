@@ -22,12 +22,31 @@ namespace GroupMessage.Server.Test.Module
             BrowserResponse response = Browser.Put("/groupmessage/message/1234", with =>
             {
                 with.HttpRequest();
-				with.Body("{'Text': 'MyTestText'}");
+				with.Body("{'MessageId':'1234', 'Text': 'MyTestText'}");
+                with.Header("Content-Type", "application/json");
             });
 
             // ASSERT
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
+
+		[Test]
+		public void PUT_ResultsInBadRequestForIdMisMatch()
+		{
+			// ARRANGE
+			Db.EntityCollection.Insert(new User {Name = "Name1", LastName = "Surname1", Email = "email1@mail.dk"});
+			Db.EntityCollection.Insert(new User {Name = "Name2", LastName = "Surname2", Email = "email2@mail.dk"});
+
+			// ACT
+			BrowserResponse response = Browser.Put("/groupmessage/message/8989", with =>
+			                                       {
+				with.HttpRequest();
+				with.Body("{'MessageId':'4567','Text': 'MyTestText'}");
+			});
+			
+			// ASSERT
+			Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+		}
 
 		string AsString (BrowserResponseBodyWrapper body)
 		{
