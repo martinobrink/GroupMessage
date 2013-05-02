@@ -50,7 +50,7 @@ function MessagesViewCtrl($scope, $http) {
 
     $scope.sendMessage = function(form) {
         var messageId = "1234"; //TODO get from server
-        var url = "http://localhost:8282/groupmessage/message/"+messageId;
+        var url = "/groupmessage/message/"+messageId;
         var jsonToPut = "{'MessageId':'"+messageId+"', 'Text': '" + $scope.message + "'}";
 
         var client = new XMLHttpRequest();
@@ -76,7 +76,7 @@ function UsersViewCtrl($scope, $http) {
     $scope.lastForm = {};
 
     $scope.init = function () {
-        var url = "http://localhost:8282/groupmessage/user/";
+        var url = "/groupmessage/user/";
 
         var client = new XMLHttpRequest();
 
@@ -94,7 +94,18 @@ function UsersViewCtrl($scope, $http) {
     };
 
     $scope.deleteUser = function(phoneNumber) {
-        alert("will delete user with tlf." + phoneNumber);
+        var url = "/groupmessage/user/"+phoneNumber;
+
+        var client = new XMLHttpRequest();
+
+        client.onreadystatechange = function() {
+            if (client.readyState != 4)  { return; }
+            $scope.init()
+        };
+
+        client.open("DELETE", url, false);
+
+        client.send();
     }
 
 }

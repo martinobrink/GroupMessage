@@ -32,5 +32,13 @@
                     with.Body(bodyContent);
                 });
         }
+
+        public static Nancy.Testing.BrowserResponse Delete(this Nancy.Testing.Browser browser, string route)
+        {
+            return browser.Delete(route, with =>
+            {
+                with.HttpRequest();
+            });
+        }
     }
 }

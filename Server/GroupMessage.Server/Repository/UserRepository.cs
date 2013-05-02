@@ -30,5 +30,11 @@ namespace GroupMessage.Server.Repository
             var entityQuery = Query<User>.EQ(user => user.PhoneNumber, phoneNumber);
             return this.MongoDb.EntityCollection.FindOne(entityQuery);
         }
+
+        public void DeleteByPhoneNumber(string phoneNumber)
+        {
+            var entityQuery = Query<User>.EQ(user => user.PhoneNumber, phoneNumber);
+            this.MongoDb.EntityCollection.Remove(entityQuery);
+        }
     }
 }
