@@ -27,7 +27,55 @@ namespace GroupMessage.Server.Test.Module
             Assert.That(users.Count(user => user.Name == "Name1"), Is.EqualTo(1));
             Assert.That(users.Count(user => user.Name == "Name2"), Is.EqualTo(1));
         }
+        
+        [Test]
+        public void PUT_PhoneUpdate_UserWithExistingPhoneNumber_ShouldReturnStatusOkAndUpdateUserWithDeviceData()
+        {
+            // ARRANGE
+            Db.EntityCollection.Insert(new User { Name = "Name1", LastName = "Lastname1", PhoneNumber = "11111111", Email = "email1@mail.dk" });
+            var phoneUserUpdate = new User { PhoneNumber = "11111111", DeviceOs = DeviceOs.Android, DeviceToken = "someTokenValue" };
 
+            // ACT
+            var response = Browser.Put(string.Format("/groupmessage/user/{0}/", phoneUserUpdate.PhoneNumber), phoneUserUpdate.AsJson());
+
+            // ASSERT
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            var users = Browser.Get("/groupmessage/user").Body.UnmarshallJson<List<User>>();
+            Assert.That(users.Count, Is.EqualTo(1));
+            var userRetuned = users.Single();
+            Assert.That(userRetuned.DeviceToken, Is.EqualTo("someTokenValue"));
+            Assert.That(userRetuned.DeviceOs, Is.EqualTo(DeviceOs.Android));
+            Assert.That(userRetuned.LastUpdate, Is.InRange(DateTime.UtcNow.AddMinutes(-1), DateTime.UtcNow));
+        }
+
+        [Test]
+        public void PUT_PhoneUpdate_UserWithUnknownPhoneNumber_ShouldReturnStatusBadRequest()
+        {
+            // ARRANGE
+            var phoneUpdateWithUnkownPhoneNumber = new User { PhoneNumber = "11111111", DeviceOs = DeviceOs.Android, DeviceToken = "someTokenValue" };
+
+            // ACT
+            var response = Browser.Put(string.Format("/groupmessage/user/{0}/", phoneUpdateWithUnkownPhoneNumber.PhoneNumber), phoneUpdateWithUnkownPhoneNumber.AsJson());
+
+            // ASSERT
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+            var users = Browser.Get("/groupmessage/user").Body.UnmarshallJson<List<User>>();
+            Assert.That(users.Count, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void PUT_PhoneUpdate_IllegalJson_ShouldReturnStatusBadRequest()
+        {
+            // ARRANGE
+            // ACT
+            var response = Browser.Put("/groupmessage/user/11111111", "some invalid json");
+
+            // ASSERT
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+            var users = Browser.Get("/groupmessage/user").Body.UnmarshallJson<List<User>>();
+            Assert.That(users.Count, Is.EqualTo(0));
+        }
+        
         [Test]
         public void PUT_UserWithUnknownPhoneNumber_ShouldReturnStatusCreatedAndPersistUser()
         {
@@ -41,10 +89,10 @@ namespace GroupMessage.Server.Test.Module
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
             var users = Browser.Get("/groupmessage/user").Body.UnmarshallJson<List<User>>();
             Assert.That(users.Count, Is.EqualTo(1));
-            Assert.That(users.Single().Name, Is.EqualTo("Name1"));
+            Assert.That(users.Single().Name, Is.EqualTo("Name1")); 
             Assert.That(users.Single().LastUpdate, Is.InRange(DateTime.UtcNow.AddMinutes(-1), DateTime.UtcNow));
         }
-
+        
         [Test]
         public void PUT_UserWithExistingPhoneNumber_ShouldReturnStatusOkAndUpdateUser()
         {

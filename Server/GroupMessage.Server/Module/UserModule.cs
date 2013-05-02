@@ -47,6 +47,38 @@ namespace GroupMessage.Server.Module
                     _userRepository.Users.Save(user);
                     return Response.AsJson(user);
                 };
+
+            //phone updates: phoneNumber + token + deviceOs
+            Put["/user/{phoneNumber}"] = parameters =>
+            {
+                User user = null;
+                try
+                {
+                    user = this.Bind<User>();
+                }
+                catch (Exception)
+                {
+                    return new Response().Create(HttpStatusCode.BadRequest, "Illegal json received: " + Request.Body.GetAsString());
+                }
+
+                if (user == null || String.IsNullOrEmpty(user.PhoneNumber))
+                {
+                    return new Response().Create(HttpStatusCode.BadRequest, "Did you forget to set PhoneNumber? Json received: " + Request.Body.GetAsString());
+                }
+
+                var existingUser = _userRepository.GetByPhoneNumber(user.PhoneNumber);
+                if (existingUser == null)
+                {
+                    return new Response().Create(HttpStatusCode.BadRequest, "User with phone number specified was not found");
+                }
+
+                existingUser.LastUpdate = DateTime.UtcNow;
+                existingUser.DeviceToken = user.DeviceToken;
+                existingUser.DeviceOs = user.DeviceOs;
+                _userRepository.Users.Save(existingUser);
+                return Response.AsJson(existingUser);
+            };
+
         }
     }
 }
