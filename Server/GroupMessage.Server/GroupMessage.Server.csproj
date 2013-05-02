@@ -85,6 +85,7 @@
     <Compile Include="Repository\MessageStatusRepository.cs" />
     <Compile Include="Model\SendStatus.cs" />
     <Compile Include="NancyBootstrapper.cs" />
+    <Compile Include="Module\StaticModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
