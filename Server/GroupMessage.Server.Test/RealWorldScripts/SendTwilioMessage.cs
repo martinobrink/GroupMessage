@@ -1,4 +1,5 @@
 using System;
+using GroupMessage.Server.Communication;
 using NUnit.Framework;
 
 namespace GroupMessage.Server.Test
