@@ -34,6 +34,12 @@ Global
 		$2.inheritsSet = Mono
 		$2.inheritsScope = text/x-csharp
 		$2.scope = text/x-csharp
+		$0.TextStylePolicy = $3
+		$3.inheritsSet = null
+		$3.scope = application/config+xml
+		$0.XmlFormattingPolicy = $4
+		$4.inheritsSet = null
+		$4.scope = application/config+xml
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
