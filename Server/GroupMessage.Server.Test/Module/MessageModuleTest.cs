@@ -16,8 +16,6 @@ namespace GroupMessage.Server.Test.Module
             Db.EntityCollection.Insert(new User {Name = "Name1", LastName = "Surname1", Email = "email1@mail.dk"});
 			Db.EntityCollection.Insert(new User {Name = "Name2", LastName = "Surname2", Email = "email2@mail.dk"});
 
-			var msg = new Message {MessageId="1234", Text="MyTestText"};
-
             // ACT
             BrowserResponse response = Browser.Put("/groupmessage/message/1234", with =>
             {
@@ -28,6 +26,7 @@ namespace GroupMessage.Server.Test.Module
 
             // ASSERT
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(SpyingMessageSender.NumberOfCalls, Is.EqualTo (2));
         }
 
 		[Test]
@@ -52,5 +51,6 @@ namespace GroupMessage.Server.Test.Module
 		{
 			return System.Text.Encoding.UTF8.GetString(System.Linq.Enumerable.ToArray<byte>((IEnumerable <byte>)body));
 		}
+
     }
 }

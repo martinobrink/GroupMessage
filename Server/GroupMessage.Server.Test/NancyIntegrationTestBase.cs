@@ -11,6 +11,7 @@ namespace GroupMessage.Server.Test
     {
         protected MongoDbWrapper<TEntity> Db;
         protected Browser Browser;
+        protected SpyingMessageSender SpyingMessageSender;
 
         protected virtual void OnFixtureSetup()
         {
@@ -23,10 +24,14 @@ namespace GroupMessage.Server.Test
             var mongoServer = mongoClient.GetServer();
             mongoServer.DropDatabase("IntegrationTest");
             var database = mongoServer.GetDatabase("IntegrationTest");
+
+            SpyingMessageSender = new SpyingMessageSender ();
+
             var bootstrapper = new ConfigurableBootstrapper(with =>
                 {
                     with.Dependency<MongoDatabase>(database);
                     with.Dependency<IMongoDbWrapper<User>>(new MongoDbWrapper<User>(database));
+                    with.Dependency<IMessageSender> (SpyingMessageSender);
                     
                     with.Module<UserModule>();
 					with.Module<MessageModule>();
