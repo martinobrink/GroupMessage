@@ -6,10 +6,11 @@ namespace GroupMessage.Server.Model
 {
     public enum DeviceOs
     {
-        Android = 0,
-        iOS = 1,
-        WindowsPhone = 2,
-        Windows8 = 3
+        NotSet = 0,
+        Android = 1,
+        iOS = 2,
+        WindowsPhone = 3,
+        Windows8 = 4
     }
 
     public class User : EntityBase
