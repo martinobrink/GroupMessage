@@ -12,8 +12,8 @@ namespace GroupMessage.Server.Test.Module
         public void GET_ShouldReturnStatusOKAndAllUsers()
         {
             // ARRANGE
-            Db.EntityCollection.Insert(new User {Name = "Name1", SurName = "Surname1", Email = "email1@mail.dk"});
-            Db.EntityCollection.Insert(new User {Name = "Name2", SurName = "Surname2", Email = "email2@mail.dk"});
+            Db.EntityCollection.Insert(new User {Name = "Name1", LastName = "Lastname1", Email = "email1@mail.dk"});
+            Db.EntityCollection.Insert(new User {Name = "Name2", LastName = "Lastname2", Email = "email2@mail.dk"});
 
             // ACT
             var response = Browser.Get("/groupmessage/user", with =>

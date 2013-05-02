@@ -20,7 +20,7 @@ namespace GroupMessage.Server.Module
                     var stringBuilder = new StringBuilder();
                     foreach (var user in _userRepository.Users.AsQueryable())
                     {
-                        stringBuilder.AppendLine(string.Format("<li>Name: {0} {1}, Email: {2} </li>", user.Name, user.SurName, user.Email));
+                        stringBuilder.AppendLine(string.Format("<li>Name: {0} {1}, Phone: {2}, Email: {3} </li>", user.Name, user.LastName, user.PhoneNumber, user.Email));
                     }
                     return "<html>Nancy says that all users are: <br><ul>" + stringBuilder.ToString() + "</ul></html>";
                 };
@@ -29,7 +29,7 @@ namespace GroupMessage.Server.Module
                 {
                     var user = this.Bind<User>(); //deserialize request data into User class
                     _userRepository.Create(user);
-                    var userString = String.Format("Name: {0} {1}, Email: {2}", user.Name, user.SurName, user.Email);
+                    var userString = String.Format("Name: {0} {1}, Phone: {2}, Email: {2}", user.Name, user.LastName, user.PhoneNumber, user.Email);
                     return string.Format("<html>Nancy says that user {0} was saved.</html>", userString);
                 };
         }
