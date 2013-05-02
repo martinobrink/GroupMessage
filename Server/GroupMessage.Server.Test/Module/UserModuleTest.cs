@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Nancy;
 using Nancy.Testing;
+using System.Collections.Generic;
 
 namespace GroupMessage.Server.Test.Module
 {
@@ -24,8 +25,13 @@ namespace GroupMessage.Server.Test.Module
 
             // ASSERT
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.That(response.Body.AsString(), Is.StringContaining("Name1"));
-            Assert.That(response.Body.AsString(), Is.StringContaining("Name2"));
+            Assert.That(AsString(response.Body), Is.StringContaining("Name1"));
+            Assert.That(AsString(response.Body), Is.StringContaining("Name2"));
         }
+
+		string AsString (BrowserResponseBodyWrapper body)
+		{
+			return System.Text.Encoding.UTF8.GetString(System.Linq.Enumerable.ToArray<byte>((IEnumerable <byte>)body));
+		}
     }
 }
