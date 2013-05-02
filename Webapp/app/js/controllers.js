@@ -49,7 +49,22 @@ function HomeViewCtrl($scope, $http) {
     $scope.lastForm = {};
 
     $scope.sendMessage = function(form) {
-        alert("sendMessage invoked" + $scope.message);
+        var messageId = "1234"; //TODO get from server
+        var url = "http://localhost:8282/groupmessage/message/"+messageId;
+        var jsonToPut = "{'MessageId':'"+messageId+"', 'Text': '" + $scope.message + "'}";
+
+        var client = new XMLHttpRequest();
+
+        client.open("PUT", url, false);
+
+        client.setRequestHeader("Content-Type", "application/json");
+
+        client.send(jsonToPut);
+
+        if (client.status == 200)
+            alert("The request succeeded!\n\nThe response representation was:\n\n" + client.responseText)
+        else
+            alert("The request did not succeed!\n\nThe response status was: " + client.status + " " + client.statusText + ".");
     }
 
 }
