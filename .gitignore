@@ -108,3 +108,4 @@ Backup*/
 UpgradeLog*.XML
 GroupMessage.userprefs
 Server/GroupMessage.Server.Test/test-results
+Twilio.txt
