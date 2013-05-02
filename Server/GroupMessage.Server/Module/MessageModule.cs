@@ -10,15 +10,8 @@ namespace GroupMessage.Server.Module
 {
     public class MessageModule : ModuleBase
     {
-        private readonly IMessageSender _sender;
-        private readonly UserRepository _userRepository;
-
-
-        public MessageModule (IMessageSender messageSender, UserRepository userRepository, MessageStatusRepository _messageStatusRepository) : base("groupmessage")
+        public MessageModule (MessageService _messageService) : base("groupmessage")
         {
-            _sender = messageSender;
-            _userRepository = userRepository;
-
             Put ["/message/{idInUrl}"] = parameters =>
             {
                 // TODO: Handle duplicate submissions of message with same id
@@ -37,22 +30,7 @@ namespace GroupMessage.Server.Module
                     };
                 }
 
-                var users = _userRepository.Users.AsQueryable().ToList();
-                foreach (var user in users) 
-                {
-                    _messageStatusRepository.Create(new MessageStatus{Message=message, User=user});
-                }
-
-
-                var statuses = _messageStatusRepository.Statuses.AsQueryable<MessageStatus>().Where(s => s.Message.Id == message.Id && s.Status.NumberOfTries == 0);
-                foreach (var status in statuses) 
-                {
-                    var sendStatus = _sender.Send(status.User, status.Message.Text);
-                    status.Status.NumberOfTries++;
-                    status.Status.Success = sendStatus.Success;
-                    status.Status.ErrorMessage = sendStatus.ErrorMessage;
-                    _messageStatusRepository.Update(status);
-                }
+                _messageService.initialSend(message);
 
                 return "";
             };
