@@ -81,6 +81,9 @@
     <Compile Include="Module\MessageModule.cs" />
     <Compile Include="Communication\TwilioMessageSender.cs" />
     <Compile Include="LoggingErrorHandler.cs" />
+    <Compile Include="Model\MessageStatus.cs" />
+    <Compile Include="Repository\MessageStatusRepository.cs" />
+    <Compile Include="Model\SendStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

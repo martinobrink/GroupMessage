@@ -26,10 +26,11 @@ namespace GroupMessage.Server.Test
             Texts = new List<String>();
         }
 
-        void IMessageSender.Send (GroupMessage.Server.Model.User user, string text)
+        SendStatus IMessageSender.Send (GroupMessage.Server.Model.User user, string text)
         {
             Users.Add(user);
             Texts.Add(text);
+            return new SendStatus{Success=true};
         }
     }
 }

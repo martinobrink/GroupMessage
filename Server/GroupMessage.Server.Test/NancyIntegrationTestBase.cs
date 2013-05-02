@@ -31,6 +31,7 @@ namespace GroupMessage.Server.Test
                 {
                     with.Dependency<MongoDatabase>(database);
                     with.Dependency<IMongoDbWrapper<User>>(new MongoDbWrapper<User>(database));
+                    with.Dependency<IMongoDbWrapper<MessageStatus>>(new MongoDbWrapper<MessageStatus>(database));
                     with.Dependency<IMessageSender> (SpyingMessageSender);
                     
                     with.Module<UserModule>();

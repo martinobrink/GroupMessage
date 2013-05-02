@@ -32,7 +32,7 @@ namespace GroupMessage.Server.Communication
             _client = new TwilioRestClient(accountSID, authToken);
         }
 
-        public void Send(Model.User user, string text)
+        public SendStatus Send(Model.User user, string text)
         {
             Console.WriteLine("About to send message " + text + " to user " + user.Name);
 
@@ -42,7 +42,11 @@ namespace GroupMessage.Server.Communication
             {
                 var errorMsg = "Unable to send sms to user " + user.Name + ", status is " + status.Status + ", exception is " + status.RestException.Message;
                 Console.WriteLine (errorMsg);
-                throw new Exception(errorMsg);
+                return new SendStatus{Success=false, ErrorMessage=status.RestException.Message};
+            } 
+            else 
+            {
+                return new SendStatus{Success=true};
             }
         }
     }

@@ -42,15 +42,59 @@ function ContactViewCtrl($scope, $http) {
 
 }
 
-HomeViewCtrl.$inject = ['$scope', '$http'];
+MessagesViewCtrl.$inject = ['$scope', '$http'];
 
-function HomeViewCtrl($scope, $http) {
+function MessagesViewCtrl($scope, $http) {
 
     $scope.lastForm = {};
 
     $scope.sendMessage = function(form) {
-        alert("sendMessage invoked" + $scope.message);
+        var messageId = "1234"; //TODO get from server
+        var url = "http://localhost:8282/groupmessage/message/"+messageId;
+        var jsonToPut = "{'MessageId':'"+messageId+"', 'Text': '" + $scope.message + "'}";
+
+        var client = new XMLHttpRequest();
+
+        client.open("PUT", url, false);
+
+        client.setRequestHeader("Content-Type", "application/json");
+
+        client.send(jsonToPut);
+
+        if (client.status == 200)
+            alert("The request succeeded!\n\nThe response representation was:\n\n" + client.responseText)
+        else
+            alert("The request did not succeed!\n\nThe response status was: " + client.status + " " + client.statusText + ".");
     }
 
 }
 
+UsersViewCtrl.$inject = ['$scope', '$http'];
+
+function UsersViewCtrl($scope, $http) {
+
+    $scope.lastForm = {};
+
+    $scope.init = function () {
+        var url = "http://localhost:8282/groupmessage/user/";
+
+        var client = new XMLHttpRequest();
+
+        client.open("GET", url, false);
+
+        client.setRequestHeader("Content-Type", "application/json");
+
+        client.send();
+
+        if (client.status == 200) {
+            $scope.users=JSON.parse(client.responseText);
+        }
+        else
+            alert("The request did not succeed!\n\nThe response status was: " + client.status + " " + client.statusText + ".");
+    };
+
+    $scope.deleteUser = function(phoneNumber) {
+        alert("will delete user with tlf." + phoneNumber);
+    }
+
+}

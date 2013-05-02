@@ -1,0 +1,22 @@
+<div class="page-header">
+    <h1>Users</h1>
+    <p>Administer users</p>
+</div>
+
+<!-- Example row of columns -->
+<div class="row">
+    <div data-ng-controller="UsersViewCtrl" data-ng-init="init()">
+        <!--div ng-init="users"-->
+
+        <ul>
+            <li ng-repeat="user in users">
+                {{user.Name}} {{user.LastName}} {{user.PhoneNumber}}
+                <form ng-submit="deleteUser(user.PhoneNumber)">
+                    <input class="btn btn-primary btn-small" type="submit" value="Delete"/>
+                </form>
+            </li>
+        </ul>
+        <!--/div-->
+    </div>
+</div>
+
