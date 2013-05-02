@@ -13,12 +13,12 @@ namespace GroupMessage.Server.Test
         protected Browser Browser;
         protected SpyingMessageSender SpyingMessageSender;
 
-        protected virtual void OnFixtureSetup()
+        protected virtual void OnSetup()
         {
         }
 
-        [TestFixtureSetUp]
-        public void FixtureSetup()
+        [SetUp]
+        public void Setup()
         {
             var mongoClient = new MongoClient();
             var mongoServer = mongoClient.GetServer();
@@ -40,7 +40,7 @@ namespace GroupMessage.Server.Test
             Browser = new Browser(bootstrapper);
             Db = new MongoDbWrapper<TEntity>(database);
 
-            OnFixtureSetup();
+            OnSetup();
         }
     }
 }

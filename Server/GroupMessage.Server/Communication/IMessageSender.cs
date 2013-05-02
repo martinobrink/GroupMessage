@@ -5,6 +5,6 @@ namespace GroupMessage.Server
 {
 	public interface IMessageSender
 	{
-		void Send(User user, String message);
+		void Send(User user, String text);
 	}
 }
