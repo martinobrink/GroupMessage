@@ -16,5 +16,11 @@ namespace GroupMessage.Server.Module
 
             return response;
         }
+
+        public static Response Create(this Response response, HttpStatusCode statusCode, string body)
+        {
+            response.StatusCode = statusCode;
+            return response.SetBody(body);
+        }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using GroupMessage.Server.Data;
 using GroupMessage.Server.Model;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 
 namespace GroupMessage.Server.Repository
 {
@@ -21,6 +23,12 @@ namespace GroupMessage.Server.Repository
         {
             //todo
             throw new NotImplementedException();
+        }
+
+        public User GetByPhoneNumber(string phoneNumber)
+        {
+            var entityQuery = Query<User>.EQ(user => user.PhoneNumber, phoneNumber);
+            return this.MongoDb.EntityCollection.FindOne(entityQuery);
         }
     }
 }

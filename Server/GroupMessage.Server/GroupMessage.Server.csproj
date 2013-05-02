@@ -64,9 +64,11 @@
     <Compile Include="Data\IMongoDbWrapper.cs" />
     <Compile Include="Data\MongoDbWrapper.cs" />
     <Compile Include="Model\EntityBase.cs" />
+    <Compile Include="Model\EntityExtensions.cs" />
     <Compile Include="Model\IEntity.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Module\ModuleBase.cs" />
+    <Compile Include="Module\RequestStreamExtensions.cs" />
     <Compile Include="Module\ResponseExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
