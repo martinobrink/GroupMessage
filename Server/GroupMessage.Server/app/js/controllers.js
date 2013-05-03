@@ -64,7 +64,6 @@ function StatusViewCtrl($scope, $http) {
     $scope.init = function () {
         $http.get("/groupmessage/transaction/").then(function(result){
             var data = result.data;
-            alert(data);
             $scope.statuses = data;
         })
     };

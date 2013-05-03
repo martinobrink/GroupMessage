@@ -1,4 +1,4 @@
-<div class="page-header">
+<div class="page-header" xmlns:c="http://www.w3.org/1999/XSL/Transform">
     <h1>Status</h1>
 
     <p>status for sent messages</p>
@@ -13,6 +13,8 @@
             <th scope="col" title="Firstname">User</th>
             <th scope="col" title="Lastname">Message text</th>
             <th scope="col" title="Phone number">Status</th>
+            <th scope="col" title="Media">Media</th>
+            <th scope="col" title="Error">Error</th>
         </tr>
         <tr ng-repeat="status in statuses">
             <td>
@@ -25,6 +27,16 @@
             <td>
                 {{ status.Status.Success}}
             </td>
+            <td>
+                <c:if test="{{{status.Status.Type}} == 0}">SMS</c:if>
+                <c:if test="{{{status.Status.Type}} == 1}">Push message</c:if>
+
+                {{ status.Type }}
+            </td>
+            <td>
+                {{ status.Status.ErrorMessage }}
+            </td>
+
         </tr>
         </tbody>
     </table>
