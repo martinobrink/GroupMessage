@@ -13,10 +13,10 @@ function MessagesViewCtrl($scope, $http) {
 
     $scope.lastForm = {};
 
-    $scope.sendMessage = function(form) {
-        var messageId = "1234"; //TODO get from server
+    $scope.sendMessage = function(textMessage) {
+        var messageId = "messageId"+new Date().getTime();
         var url = "/groupmessage/message/"+messageId;
-        var message = {MessageId:messageId, Text:$scope.message};
+        var message = {MessageId:messageId, Text:textMessage};
 
         $http.put(url, message);
     }
@@ -44,6 +44,7 @@ function UsersViewCtrl($scope, $http) {
 
     $scope.update = function(user) {
         $http.put("/groupmessage/user/", JSON.stringify($scope.user)).then(function(){
+            $scope.user = null;
             $scope.init();
         })
     }

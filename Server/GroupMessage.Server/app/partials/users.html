@@ -1,12 +1,14 @@
 <div class="page-header">
     <h1>Users</h1>
+
     <p>Administer users</p>
 </div>
 
 <!-- Example row of columns -->
 <div class="row">
 
-    <h2>Users in group</h2>
+    <h2>Users</h2>
+
     <div data-ng-controller="UsersViewCtrl" data-ng-init="init()">
 
         <table class="table table-striped table-bordered table-condensed">
@@ -20,42 +22,40 @@
                 <th scopw="col"/>
             </tr>
             <tr ng-repeat="user in users">
-                <td >
+                <td>
                     {{ user.Name }}
                 </td>
-                <td >
+                <td>
                     {{ user.LastName }}
                 </td>
-                <td >
+                <td>
                     {{ user.PhoneNumber }}
                 </td>
-                <td >
+                <td>
                     {{ user.Email }}
                 </td>
                 <td>
 
-                    <form ng-submit="deleteUser(user.PhoneNumber)" style="display:inline-table;">
-                        <input class="btn btn-primary btn-small" type="submit" value="Delete" />
-                    </form>
-                    <form style="display:inline-table;">
-                        <button class="btn btn-primary btn-small" ng-click="editUser(user)">Edit</button>
-                    </form>
+                        <button ng-click="deleteUser(user.PhoneNumber)"><i class="icon-trash"></i></button>
+                        <button ng-click="editUser(user)"><i class="icon-pencil"></i></button>
                 </td>
             </tr>
             </tbody>
         </table>
 
-        <h2>Add user</h2>
+        <h2>User</h2>
+        <p>Edit/add user</p>
+
         <div>
-            <form ng-submit="update(user)" data-ng-init="init()">
+            <form class="well" ng-submit="update(user)" data-ng-init="init()">
                 <div>
-                    Firstname: <input type="text" ng-model="user.Name" /><br />
-                    Lastname: <input type="text" ng-model="user.LastName" /><br />
-                    Phone number: <input type="text" ng-model="user.PhoneNumber" /><br />
-                    E-mail: <input type="email" ng-model="user.Email" />
+                    <label>Firstname</label><input type="text" ng-model="user.Name"/>
+                    <label>Lastname</label> <input type="text" ng-model="user.LastName"/>
+                    <label>Phone number</label> <input type="text" ng-model="user.PhoneNumber"/>
+                    <label>E-mail</label> <input type="email" ng-model="user.Email"/>
                 </div>
                 <div>
-                    <input type="submit" class="btn btn-primary btn-small" value="Save"/>
+                    <input type="submit" class="btn btn-primary btn-large" value="Save"/>
                 </div>
             </form>
         </div>
