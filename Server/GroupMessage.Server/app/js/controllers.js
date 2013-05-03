@@ -44,6 +44,7 @@ function UsersViewCtrl($scope, $http) {
 
     $scope.update = function(user) {
         $http.put("/groupmessage/user/", JSON.stringify($scope.user)).then(function(){
+            $scope.user = null;
             $scope.init();
         })
     }
