@@ -33,7 +33,7 @@ namespace GroupMessage.Server.Test.Module
         {
             // ARRANGE
             Db.EntityCollection.Insert(new User { Name = "Name1", LastName = "Lastname1", PhoneNumber = "11111111", Email = "email1@mail.dk" });
-            var phoneUserUpdate = new User { PhoneNumber = "11111111", DeviceOs = DeviceOs.Android, DeviceToken = "someTokenValue" };
+            var phoneUserUpdate = new User { PhoneNumber = "11111111", DeviceOs = DeviceOs.Android, DeviceOsVersion = "4.0.1", DeviceToken = "someTokenValue" };
 
             // ACT
             var response = Browser.Put(string.Format("/groupmessage/user/{0}/", phoneUserUpdate.PhoneNumber), phoneUserUpdate.AsJson());
@@ -45,6 +45,7 @@ namespace GroupMessage.Server.Test.Module
             var userRetuned = users.Single();
             Assert.That(userRetuned.DeviceToken, Is.EqualTo("someTokenValue"));
             Assert.That(userRetuned.DeviceOs, Is.EqualTo(DeviceOs.Android));
+            Assert.That(userRetuned.DeviceOsVersion, Is.EqualTo("4.0.1"));
             Assert.That(userRetuned.LastUpdate, Is.InRange(DateTime.UtcNow.AddMinutes(-1), DateTime.UtcNow));
         }
 

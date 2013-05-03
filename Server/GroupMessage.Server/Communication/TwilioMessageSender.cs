@@ -29,6 +29,8 @@ namespace GroupMessage.Server.Communication
             var authToken = twilioConfigLines[1].Split('=')[1];
             _senderNumber = twilioConfigLines[2].Split('=')[1];
 
+            Console.WriteLine ("Instantiating client with SID " + accountSID + " and token " + authToken);
+
             _client = new TwilioRestClient(accountSID, authToken);
         }
 
@@ -36,7 +38,26 @@ namespace GroupMessage.Server.Communication
         {
             Console.WriteLine("About to send message " + text + " to user " + user.Name + " " + user.LastName);
 
-            var status = _client.SendSmsMessage(_senderNumber, "+45 "+user.PhoneNumber, text);
+            SMSMessage status = null;
+            try {
+                Console.WriteLine ("senderNumber=" + _senderNumber + "user.PhoneNumber" + user.PhoneNumber + "text=" + text);
+               
+                status = _client.SendSmsMessage(_senderNumber, "+45 "+user.PhoneNumber, text);
+            } 
+            catch (Exception e) 
+            {
+                Console.WriteLine (e.Message);
+                Console.WriteLine (e.StackTrace);
+                Console.WriteLine (e.GetBaseException().Message);
+                return new SendStatus{Success=false, ErrorMessage="exception while sending: " + e.GetBaseException().Message};
+            }
+
+
+            if (status == null) 
+            {
+                Console.WriteLine("status returned from Twilio send was null");
+                return new SendStatus{Success=false, ErrorMessage="status returned from Twilio send was null"};
+            }
 
             if (status.Status != "sent" && status.Status != "queued") 
             {

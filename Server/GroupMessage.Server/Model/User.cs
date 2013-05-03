@@ -21,6 +21,7 @@ namespace GroupMessage.Server.Model
         public string Email { get; set; }
         [BsonRepresentation(BsonType.String)]
         public DeviceOs DeviceOs { get; set; }
+        public string DeviceOsVersion { get; set; }
         public string DeviceToken { get; set; }
         public DateTime LastUpdate { get; set; }
     }

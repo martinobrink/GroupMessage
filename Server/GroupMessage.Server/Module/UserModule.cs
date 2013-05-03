@@ -75,6 +75,7 @@ namespace GroupMessage.Server.Module
                 existingUser.LastUpdate = DateTime.UtcNow;
                 existingUser.DeviceToken = user.DeviceToken;
                 existingUser.DeviceOs = user.DeviceOs;
+                existingUser.DeviceOsVersion = user.DeviceOsVersion;
                 _userRepository.Users.Save(existingUser);
                 return Response.AsJson(existingUser);
             };
