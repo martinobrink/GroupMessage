@@ -5,9 +5,9 @@
 
 <!-- Example row of columns -->
 <div class="row">
-    <div data-ng-controller="UsersViewCtrl" data-ng-init="init()">
-        <!--div ng-init="users"-->
 
+    <h2>Users in group</h2>
+    <div data-ng-controller="UsersViewCtrl" data-ng-init="init()">
         <ul>
             <li ng-repeat="user in users">
                 {{user.Name}} {{user.LastName}} {{user.PhoneNumber}}
@@ -16,7 +16,21 @@
                 </form>
             </li>
         </ul>
-        <!--/div-->
+        <h2>Add user</h2>
+        <div>
+            <form ng-submit="update(user)" data-ng-init="init()">
+                <div>
+                    Firstname: <input type="text" ng-model="user.Name" /><br />
+                    Lastname: <input type="text" ng-model="user.LastName" /><br />
+                    Phone number: <input type="number" ng-model="user.PhoneNumber" /><br />
+                    E-mail: <input type="email" ng-model="user.Email" />
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary btn-small" value="Save"/>
+                </div>
+            </form>
+        </div>
     </div>
+
 </div>
 
