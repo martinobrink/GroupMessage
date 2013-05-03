@@ -58,7 +58,7 @@ namespace GroupMessage
 			Log.Verbose(PushHandlerBroadcastReceiver.TAG, "GCM Registered: " + registrationId);
 			var osVersion = Android.OS.Build.VERSION.Release;
 			var phoneNumberFromPreferences = Preferences.GetString(Constants.PREF_PHONE_NUMBER, null);
-			var json = "{\"PhoneNumber\": \""+phoneNumberFromPreferences+"\", \"DeviceToken\": \""+registrationId+"\", \"DeviceOs\": \"Android\"}";
+			var json = "{\"PhoneNumber\": \""+phoneNumberFromPreferences+"\", \"DeviceToken\": \""+registrationId+"\", \"DeviceOs\": \"Android\", \"DeviceOsVersion\": \""+osVersion+"\"}";
 			string response = HttpPut("http://home.obrink-hansen.dk:8282/groupmessage/user/"+phoneNumberFromPreferences, json);
 
 			createNotification("PushSharp-GCM Registered...", "The device has been Registered, Tap to View! Id = " + registrationId);
