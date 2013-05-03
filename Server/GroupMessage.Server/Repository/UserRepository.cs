@@ -7,7 +7,7 @@ using MongoDB.Driver.Builders;
 
 namespace GroupMessage.Server.Repository
 {
-    public class UserRepository : EntityRepositoryBase<User>
+    public class UserRepository : EntityRepositoryBase<User>, IUserRepository
     {
         public MongoCollection<User> Users { get { return this.MongoDb.EntityCollection; } }
 

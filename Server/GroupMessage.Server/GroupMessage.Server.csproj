@@ -75,6 +75,7 @@
     <Compile Include="Module\UserModule.cs" />
     <Compile Include="Repository\IEntityRepository.cs" />
     <Compile Include="Repository\EntityRepositoryBase.cs" />
+    <Compile Include="Repository\IUserRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Communication\IMessageSender.cs" />
     <Compile Include="Model\Message.cs" />
@@ -263,8 +264,5 @@
   </Target>
   -->
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="app\" />
-    <Folder Include="Service\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

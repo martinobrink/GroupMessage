@@ -2,7 +2,7 @@
 
 namespace GroupMessage.Server.Repository
 {
-    interface IEntityRepository<T> where T : IEntity
+    public interface IEntityRepository<T> where T : IEntity
     {
         void Create(T entity);
 
