@@ -18,6 +18,36 @@ namespace GroupMessage.Server.Module
 
             Get["/user"] = _ => Response.AsJson(_userRepository.Users.AsQueryable().ToList());
 
+            Put["/user"] = parameters =>
+            {
+                User user = null;
+                try
+                {
+                    user = this.Bind<User>();
+                }
+                catch (Exception)
+                {
+                    return new Response().Create(HttpStatusCode.BadRequest, "Illegal json received: " + Request.Body.GetAsString());
+                }
+
+                if (user == null || String.IsNullOrEmpty(user.PhoneNumber))
+                {
+                    return new Response().Create(HttpStatusCode.BadRequest, "Did you forget to set PhoneNumber? Json received: " + Request.Body.GetAsString());
+                }
+
+                user.LastUpdate = DateTime.UtcNow;
+                var existingUser = _userRepository.GetByPhoneNumber(user.PhoneNumber);
+                if (existingUser == null)
+                {
+                    _userRepository.Create(user);
+                    return new Response().Create(HttpStatusCode.Created, user.AsJson());
+                }
+
+                user.Id = existingUser.Id;
+                _userRepository.Users.Save(user);
+                return Response.AsJson(user);
+            };
+
             //phone updates: phoneNumber + token + deviceOs
             Put["/user/{phoneNumber}"] = parameters =>
             {
