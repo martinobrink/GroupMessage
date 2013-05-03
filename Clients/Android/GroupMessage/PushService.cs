@@ -59,12 +59,6 @@ namespace GroupMessage
 			var osVersion = Android.OS.Build.VERSION.Release;
 			var phoneNumberFromPreferences = Preferences.GetString(Constants.PREF_PHONE_NUMBER, null);
 			var json = "{\"PhoneNumber\": \""+phoneNumberFromPreferences+"\", \"DeviceToken\": \""+registrationId+"\", \"DeviceOs\": \"Android\"}";
-			//Send back to the server
-			//var wc = new WebClient();
-			//var result = wc.UploadString("http://home.obrink-hansen.dk:8282/groupmessage/user/"+phoneNumberFromPreferences, "PUT", json);
-			//string description = "";
-			//int statusCode = GetStatusCode(wc, out description);
-
 			string response = HttpPut("http://home.obrink-hansen.dk:8282/groupmessage/user/"+phoneNumberFromPreferences, json);
 
 			createNotification("PushSharp-GCM Registered...", "The device has been Registered, Tap to View! Id = " + registrationId);
@@ -90,10 +84,9 @@ namespace GroupMessage
 		protected override void OnUnRegistered (Context context, string registrationId)
 		{
 			Log.Verbose(PushHandlerBroadcastReceiver.TAG, "GCM Unregistered: " + registrationId);
-			//Remove from the web service
-			//	var wc = new WebClient();
-			//	var result = wc.UploadString("http://your.server.com/api/unregister/", "POST",
-			//		"{ 'registrationId' : '" + lastRegistrationId + "' }");
+			var phoneNumberFromPreferences = Preferences.GetString(Constants.PREF_PHONE_NUMBER, null);
+			var json = "{\"PhoneNumber\": \""+phoneNumberFromPreferences+"\", \"DeviceToken\": \"\", \"DeviceOs\": \"NotSet\"}";
+			string response = HttpPut("http://home.obrink-hansen.dk:8282/groupmessage/user/"+phoneNumberFromPreferences, json);
 
 			createNotification("PushSharp-GCM Unregistered...", "The device has been unregistered, Tap to View!");
 		}
