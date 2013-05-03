@@ -48,4 +48,7 @@ function UsersViewCtrl($scope, $http) {
         })
     }
 
+    $scope.editUser = function(user) {
+        $scope.user = user;
+    }
 }
