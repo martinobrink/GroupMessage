@@ -1,22 +1,25 @@
-using System;
+using GroupMessage.Server.Communication;
 using GroupMessage.Server.Repository;
 using GroupMessage.Server.Model;
 using MongoDB.Driver.Linq;
 using System.Linq;
 
-
-namespace GroupMessage.Server
+namespace GroupMessage.Server.Service
 {
     public class MessageService
     {
+        private readonly TwilioMessageSender _twilioMessageSender;
+        private readonly PushMessageSender _pushMessageSender;
         private readonly UserRepository _userRepository;
-        private readonly IMessageSender _sender;
+
         private readonly MessageStatusRepository _messageStatusRepository;
 
-        public MessageService (IMessageSender messageSender, UserRepository userRepository, MessageStatusRepository messageStatusRepository)
+        public MessageService (TwilioMessageSender twilioMessageSender, PushMessageSender pushMessageSender, UserRepository userRepository, MessageStatusRepository messageStatusRepository)
         {
+            _twilioMessageSender = twilioMessageSender;
+            _pushMessageSender = pushMessageSender;
             _userRepository = userRepository;
-            _sender = messageSender;
+
             _messageStatusRepository = messageStatusRepository;
         }
 
@@ -31,7 +34,7 @@ namespace GroupMessage.Server
             var statuses = _messageStatusRepository.Statuses.AsQueryable<MessageStatus>().Where(s => s.Message.Id == message.Id && s.Status.NumberOfTries == 0);
             foreach (var status in statuses) 
             {
-                var sendStatus = _sender.Send(status.User, status.Message.Text);
+                var sendStatus = _twilioMessageSender.Send(status.User, status.Message.Text);
                 status.Status.NumberOfTries++;
                 status.Status.Success = sendStatus.Success;
                 status.Status.ErrorMessage = sendStatus.ErrorMessage;
