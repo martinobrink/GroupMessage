@@ -36,12 +36,8 @@
                 </td>
                 <td>
 
-                    <form ng-submit="deleteUser(user.PhoneNumber)" style="display:inline-table;">
-                        <input class="btn btn-primary btn-small" type="submit" value="Delete"/>
-                    </form>
-                    <form style="display:inline-table;">
-                        <button class="btn btn-primary btn-small" ng-click="editUser(user)">Edit</button>
-                    </form>
+                        <button ng-click="deleteUser(user.PhoneNumber)"><i class="icon-trash"></i></button>
+                        <button ng-click="editUser(user)"><i class="icon-pencil"></i></button>
                 </td>
             </tr>
             </tbody>
@@ -59,7 +55,7 @@
                     <label>E-mail</label> <input type="email" ng-model="user.Email"/>
                 </div>
                 <div>
-                    <input type="submit" class="btn btn-primary btn-small" value="Save"/>
+                    <input type="submit" class="btn btn-primary btn-large" value="Save"/>
                 </div>
             </form>
         </div>
