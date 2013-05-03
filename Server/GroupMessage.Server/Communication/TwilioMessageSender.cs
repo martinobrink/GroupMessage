@@ -11,6 +11,11 @@ namespace GroupMessage.Server.Communication
         private readonly string _senderNumber;
         private readonly TwilioRestClient _client;
 
+        public MessageSenderType SenderType
+        {
+            get { return MessageSenderType.Twilio; }
+        }
+
         public TwilioMessageSender()
         {
             List<string> twilioConfigLines;

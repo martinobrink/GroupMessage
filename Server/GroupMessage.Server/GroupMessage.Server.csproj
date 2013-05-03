@@ -61,6 +61,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Communication\IMessageSenderFactory.cs" />
+    <Compile Include="Communication\MessageSenderFactory.cs" />
+    <Compile Include="Communication\PushMessageSender.cs" />
     <Compile Include="Data\IMongoDbWrapper.cs" />
     <Compile Include="Data\MongoDbWrapper.cs" />
     <Compile Include="Model\EntityBase.cs" />
@@ -92,7 +95,6 @@
     <Compile Include="Module\TransactionModule.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="app\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -233,6 +235,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GooglePushNoticications.txt" />
     <Content Include="Twilio.txt">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

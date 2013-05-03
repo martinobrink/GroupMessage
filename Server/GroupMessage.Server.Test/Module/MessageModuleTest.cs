@@ -21,9 +21,9 @@ namespace GroupMessage.Server.Test.Module
             
             // ASSERT
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.That(SpyingMessageSender.NumberOfCalls, Is.EqualTo (2));
-            Assert.That(SpyingMessageSender.Users.Count(user => user.Name=="Name1"), Is.EqualTo(1));
-            Assert.That(SpyingMessageSender.Users.Count(user => user.Name=="Name2"), Is.EqualTo(1));
+            Assert.That(SpyingTwilioMessageSender.NumberOfCalls, Is.EqualTo (2));
+            Assert.That(SpyingTwilioMessageSender.Users.Count(user => user.Name=="Name1"), Is.EqualTo(1));
+            Assert.That(SpyingTwilioMessageSender.Users.Count(user => user.Name=="Name2"), Is.EqualTo(1));
         }
 
 		[Test]

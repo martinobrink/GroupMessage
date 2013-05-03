@@ -36,7 +36,7 @@ namespace GroupMessage
 		//  Be sure to get the right Project ID from your Google APIs Console.  It's not the named project ID that appears in the Overview,
 		//  but instead the numeric project id in the url: eg: https://code.google.com/apis/console/?pli=1#project:785671162406:overview
 		//  where 785671162406 is the project id, which is the SENDER_ID to use!
-		public static string[] SENDER_IDS = new string[] {"927712867801"};
+		public static string[] SENDER_IDS = new string[] {"218548849549"};
 
 		public const string TAG = "PushSharp-GCM";
 	}
