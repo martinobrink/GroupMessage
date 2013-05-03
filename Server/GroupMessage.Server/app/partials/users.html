@@ -5,18 +5,61 @@
 
 <!-- Example row of columns -->
 <div class="row">
-    <div data-ng-controller="UsersViewCtrl" data-ng-init="init()">
-        <!--div ng-init="users"-->
 
-        <ul>
-            <li ng-repeat="user in users">
-                {{user.Name}} {{user.LastName}} {{user.PhoneNumber}}
-                <form ng-submit="deleteUser(user.PhoneNumber)">
-                    <input class="btn btn-primary btn-small" type="submit" value="Delete"/>
-                </form>
-            </li>
-        </ul>
-        <!--/div-->
+    <h2>Users in group</h2>
+    <div data-ng-controller="UsersViewCtrl" data-ng-init="init()">
+
+        <table class="table table-striped table-bordered table-condensed">
+
+            <tbody>
+            <tr class="days">
+                <th scope="col" title="Firstname">Firstname</th>
+                <th scope="col" title="Lastname">Lastname</th>
+                <th scope="col" title="Phone number">Phone number</th>
+                <th scope="col" title="E-mail">E-mail</th>
+                <th scopw="col"/>
+            </tr>
+            <tr ng-repeat="user in users">
+                <td >
+                    {{ user.Name }}
+                </td>
+                <td >
+                    {{ user.LastName }}
+                </td>
+                <td >
+                    {{ user.PhoneNumber }}
+                </td>
+                <td >
+                    {{ user.Email }}
+                </td>
+                <td>
+
+                    <form ng-submit="deleteUser(user.PhoneNumber)" style="display:inline-table;">
+                        <input class="btn btn-primary btn-small" type="submit" value="Delete" />
+                    </form>
+                    <form style="display:inline-table;">
+                        <button class="btn btn-primary btn-small" ng-click="editUser(user)">Edit</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h2>Add user</h2>
+        <div>
+            <form ng-submit="update(user)" data-ng-init="init()">
+                <div>
+                    Firstname: <input type="text" ng-model="user.Name" /><br />
+                    Lastname: <input type="text" ng-model="user.LastName" /><br />
+                    Phone number: <input type="text" ng-model="user.PhoneNumber" /><br />
+                    E-mail: <input type="email" ng-model="user.Email" />
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary btn-small" value="Save"/>
+                </div>
+            </form>
+        </div>
     </div>
+
 </div>
 
