@@ -24,6 +24,7 @@ namespace GroupMessage.Server.Module
                 var bodyEntity = Request.Body.GetAsString ();
                 var map = HttpUtility.ParseQueryString (bodyEntity);
                 Console.WriteLine("Received from Twilio: " + bodyEntity);
+
                 var smsBody = map["Body"];
                 Console.WriteLine("Extracted message body: " + smsBody);
 
@@ -37,7 +38,6 @@ namespace GroupMessage.Server.Module
                 {
                     Console.WriteLine("Ignoring unknown status '" + status + "'");
                 }
-
 
                 return new Response().SetContentType("application/xml").SetBody("<?xml version='1.0' encoding='UTF-8'?><Response></Response>"); // I don't know why, but Twilio requires a Response document in order to acknowledge the receive
             };
