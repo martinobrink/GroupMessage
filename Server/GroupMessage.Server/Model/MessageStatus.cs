@@ -5,7 +5,7 @@ using GroupMessage.Server.Model;
 namespace GroupMessage.Server
 {
     /// <summary>
-    /// Represents the status for all of the sending transactions a Message 
+    /// Represents the status for all of the sending transactions for one Message 
     /// </summary>
     public class MessageStatus : EntityBase
     {
