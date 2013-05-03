@@ -56,6 +56,9 @@
     <Reference Include="MongoDB.Driver">
       <HintPath>..\packages\mongocsharpdriver.1.8.1\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\packages\FakeItEasy.1.10.0\lib\net40\FakeItEasy.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Module\BrowserExtensions.cs" />
@@ -67,6 +70,8 @@
     <Compile Include="Module\MessageModuleTest.cs" />
     <Compile Include="Module\SpyingTwilioMessageSender.cs" />
     <Compile Include="RealWorldScripts\SendTwilioMessage.cs" />
+    <Compile Include="Module\TwilioModuleTest.cs" />
+    <Compile Include="Model\UserTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -86,4 +91,7 @@
   </Target>
   -->
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Text.RegularExpressions;
 
 namespace GroupMessage.Server.Model
 {
@@ -24,5 +25,17 @@ namespace GroupMessage.Server.Model
         public string DeviceOsVersion { get; set; }
         public string DeviceToken { get; set; }
         public DateTime LastUpdate { get; set; }
+
+        public User Normalized() 
+        {
+            NormalizePhoneNumber();
+            return this;
+        }
+
+        private void NormalizePhoneNumber()
+        {
+            PhoneNumber = Regex.Replace (PhoneNumber, @"\s+", "");
+            PhoneNumber = PhoneNumber.Substring (PhoneNumber.Length - 8, 8);
+        }
     }
 }

@@ -19,6 +19,10 @@ namespace GroupMessage.Server.Test
         {
         }
 
+        protected virtual void OnConfigureBootstrapper(Nancy.Testing.ConfigurableBootstrapper.ConfigurableBootstrapperConfigurator configurator)
+        {
+        }
+
         [SetUp]
         public void Setup()
         {
@@ -35,11 +39,15 @@ namespace GroupMessage.Server.Test
                     with.Dependency<IMongoDbWrapper<User>>(new MongoDbWrapper<User>(database));
                     with.Dependency<IMongoDbWrapper<MessageStatus>>(new MongoDbWrapper<MessageStatus>(database));
                     with.Dependency<IMessageSenderFactory> (new TestMessageSenderFactory(SpyingTwilioMessageSender));
-                    
+
                     with.Module<UserModule>();
 					with.Module<MessageModule>();
+                    with.Module<TwilioModule>();
+
+                    OnConfigureBootstrapper(with);
 			});
-            
+
+
             Browser = new Browser(bootstrapper);
             Db = new MongoDbWrapper<TEntity>(database);
 

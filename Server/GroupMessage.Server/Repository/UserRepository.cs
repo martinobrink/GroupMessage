@@ -25,6 +25,11 @@ namespace GroupMessage.Server.Repository
             throw new NotImplementedException();
         }
 
+        public override void Create(User entity) 
+        {
+            base.Create(entity.Normalized());
+        }
+
         public User GetByPhoneNumber(string phoneNumber)
         {
             var entityQuery = Query<User>.EQ(user => user.PhoneNumber, phoneNumber);

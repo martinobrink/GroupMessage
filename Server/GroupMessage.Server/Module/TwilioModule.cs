@@ -17,7 +17,7 @@ namespace GroupMessage.Server.Module
     /// </summary>
     public class TwilioModule : ModuleBase
     {
-        public TwilioModule(MessageService _messageService) : base("twilio")
+        public TwilioModule(MessageService _messageService, UserRepository _userRepository) : base("twilio")
         {
             Post ["/sms"] = parameters =>
             {
@@ -27,6 +27,14 @@ namespace GroupMessage.Server.Module
 
                 var smsBody = map["Body"];
                 Console.WriteLine("Extracted message body: " + smsBody);
+
+                var senderNumber = map["From"];
+
+                var userQueryTemplate = new User{PhoneNumber=senderNumber}.Normalized(); // gets rid of the +45 in front of the Twilio sender number
+                if (_userRepository.GetByPhoneNumber(userQueryTemplate.PhoneNumber) == null) {
+                    var newUser = new User{PhoneNumber=senderNumber};
+                    _userRepository.Create(newUser);
+                }
 
                 var status = map ["SmsStatus"];
                 if (status == "received")
