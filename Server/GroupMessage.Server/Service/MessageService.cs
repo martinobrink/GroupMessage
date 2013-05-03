@@ -8,16 +8,14 @@ namespace GroupMessage.Server.Service
 {
     public class MessageService
     {
-        private readonly TwilioMessageSender _twilioMessageSender;
-        private readonly PushMessageSender _pushMessageSender;
+        private readonly IMessageSenderFactory _messageSenderFactory;
         private readonly UserRepository _userRepository;
 
         private readonly MessageStatusRepository _messageStatusRepository;
 
-        public MessageService (TwilioMessageSender twilioMessageSender, PushMessageSender pushMessageSender, UserRepository userRepository, MessageStatusRepository messageStatusRepository)
+        public MessageService (IMessageSenderFactory messageSenderFactory, UserRepository userRepository, MessageStatusRepository messageStatusRepository)
         {
-            _twilioMessageSender = twilioMessageSender;
-            _pushMessageSender = pushMessageSender;
+            _messageSenderFactory = messageSenderFactory;
             _userRepository = userRepository;
 
             _messageStatusRepository = messageStatusRepository;
@@ -25,20 +23,38 @@ namespace GroupMessage.Server.Service
 
         public void initialSend(Message message) {
             var users = _userRepository.Users.AsQueryable().ToList();
-            foreach (var user in users) 
+            var messageSenders = _messageSenderFactory.GetMessageSenders();
+
+            foreach (var user in users)
             {
-                _messageStatusRepository.Create(new MessageStatus{Message=message, User=user});
+                foreach (var messageSender in messageSenders)
+                {
+                    _messageStatusRepository.Create(new MessageStatus
+                        {
+                            Type = messageSender.SenderType,
+                            Message = message,
+                            User = user
+                        });
+                }
             }
-            
-            
-            var statuses = _messageStatusRepository.Statuses.AsQueryable<MessageStatus>().Where(s => s.Message.Id == message.Id && s.Status.NumberOfTries == 0);
-            foreach (var status in statuses) 
+
+            var messageStatuses = _messageStatusRepository.Statuses.AsQueryable<MessageStatus>().Where(s => s.Message.Id == message.Id && s.Status.NumberOfTries == 0);
+            foreach (var messageStatus in messageStatuses) 
             {
-                var sendStatus = _twilioMessageSender.Send(status.User, status.Message.Text);
-                status.Status.NumberOfTries++;
-                status.Status.Success = sendStatus.Success;
-                status.Status.ErrorMessage = sendStatus.ErrorMessage;
-                _messageStatusRepository.Update(status);
+                var messageSender = messageSenders.SingleOrDefault(sender => sender.SenderType == messageStatus.Type);
+                SendStatus sendStatus;
+                if (messageSender != null)
+                {
+                    sendStatus = messageSender.Send(messageStatus.User, messageStatus.Message.Text);
+                }
+                else
+                {
+                    sendStatus = new SendStatus { Success = true, ErrorMessage = "Unable to find MessageSender of correct type. Will not resend." };
+                }
+
+                sendStatus.NumberOfTries = messageStatus.Status.NumberOfTries++;
+                messageStatus.Status = sendStatus;
+                _messageStatusRepository.Update(messageStatus);
             }
         }
     }

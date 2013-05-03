@@ -1,4 +1,5 @@
 using System;
+using GroupMessage.Server.Communication;
 using GroupMessage.Server.Model;
 
 namespace GroupMessage.Server
@@ -11,6 +12,7 @@ namespace GroupMessage.Server
         public User User { get; set; }
         public Message Message { get; set; }
         public SendStatus Status { get; set; }
+        public MessageSenderType Type { get; set; }
 
         public MessageStatus() 
         {

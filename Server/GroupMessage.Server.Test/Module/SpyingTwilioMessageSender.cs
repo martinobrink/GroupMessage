@@ -1,11 +1,17 @@
 using System;
 using System.Collections.Generic;
+using GroupMessage.Server.Communication;
 using GroupMessage.Server.Model;
 
-namespace GroupMessage.Server.Test
+namespace GroupMessage.Server.Test.Module
 {
-    public class SpyingMessageSender: IMessageSender
+    public class SpyingTwilioMessageSender: IMessageSender
     {
+        public MessageSenderType SenderType
+        {
+            get { return MessageSenderType.Twilio; }
+        }
+
         public int NumberOfCalls {
             get { return Users.Count; }
         }
@@ -20,7 +26,7 @@ namespace GroupMessage.Server.Test
             private set;
         }
 
-        public SpyingMessageSender ()
+        public SpyingTwilioMessageSender ()
         {
             Users = new List<User>();
             Texts = new List<String>();
