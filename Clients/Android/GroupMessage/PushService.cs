@@ -10,6 +10,8 @@ using Android.Util;
 // So please, for the love of all that is kind on this earth, use a LOWERCASE first letter in your Package Name!!!!
 using System.Net;
 using System;
+using System.IO;
+using System.Reflection;
 
 
 [assembly: Permission(Name = "@PACKAGE_NAME@.permission.C2D_MESSAGE")] //, ProtectionLevel = Android.Content.PM.Protection.Signature)]
@@ -58,10 +60,31 @@ namespace GroupMessage
 			var phoneNumberFromPreferences = Preferences.GetString(Constants.PREF_PHONE_NUMBER, null);
 			var json = "{\"PhoneNumber\": \""+phoneNumberFromPreferences+"\", \"DeviceToken\": \""+registrationId+"\", \"DeviceOs\": \"Android\"}";
 			//Send back to the server
-			var wc = new WebClient();
-			var result = wc.UploadString("http://home.obrink-hansen.dk:8282/groupmessage/user/"+phoneNumberFromPreferences, "PUT", json);
+			//var wc = new WebClient();
+			//var result = wc.UploadString("http://home.obrink-hansen.dk:8282/groupmessage/user/"+phoneNumberFromPreferences, "PUT", json);
+			//string description = "";
+			//int statusCode = GetStatusCode(wc, out description);
+
+			string response = HttpPut("http://home.obrink-hansen.dk:8282/groupmessage/user/"+phoneNumberFromPreferences, json);
 
 			createNotification("PushSharp-GCM Registered...", "The device has been Registered, Tap to View! Id = " + registrationId);
+		}
+
+		public static string HttpPut(string URI, string body) 
+		{
+			WebRequest request = WebRequest.Create(URI);
+			byte [] bytes = Encoding.ASCII.GetBytes(body);
+			request.ContentType = "application/json";
+			request.Method = "PUT";
+			request.ContentLength = bytes.Length;
+			Stream requestStream = request.GetRequestStream ();
+			requestStream.Write (bytes, 0, bytes.Length); //Push it out there
+			requestStream.Close ();
+
+			WebResponse response = request.GetResponse();
+			if (response== null) return null;
+			StreamReader sr = new StreamReader(response.GetResponseStream());
+			return sr.ReadToEnd().Trim();
 		}
 
 		protected override void OnUnRegistered (Context context, string registrationId)
