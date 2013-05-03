@@ -89,6 +89,7 @@
     <Compile Include="Module\StaticModule.cs" />
     <Compile Include="Service\MessageService.cs" />
     <Compile Include="Module\TwilioModule.cs" />
+    <Compile Include="Module\TransactionModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -225,6 +226,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app\partials\users.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="app\partials\status.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

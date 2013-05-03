@@ -38,6 +38,7 @@ function UsersViewCtrl($scope, $http) {
 
     $scope.deleteUser = function(phoneNumber) {
         $http.delete("/groupmessage/user/"+phoneNumber).then(function(){
+            $scope.user = null;
             $scope.init();
         })
     }
@@ -52,4 +53,19 @@ function UsersViewCtrl($scope, $http) {
     $scope.editUser = function(user) {
         $scope.user = user;
     }
+}
+
+StatusViewCtrl.$inject = ['$scope', '$http'];
+
+function StatusViewCtrl($scope, $http) {
+
+    $scope.lastForm = {};
+
+    $scope.init = function () {
+        $http.get("/groupmessage/transaction/").then(function(result){
+            var data = result.data;
+            alert(data);
+            $scope.statuses = data;
+        })
+    };
 }

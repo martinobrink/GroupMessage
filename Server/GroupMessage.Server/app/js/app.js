@@ -7,5 +7,6 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives'])
     $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: GenericViewCtrl});
     $routeProvider.when('/messages', {templateUrl: 'partials/messages.html', controller: MessagesViewCtrl});
     $routeProvider.when('/users', {templateUrl: 'partials/users.html', controller: UsersViewCtrl});
+    $routeProvider.when('/status', {templateUrl: 'partials/status.html', controller: StatusViewCtrl});
     $routeProvider.otherwise({redirectTo: '/home'});
   }]);

@@ -1,0 +1,33 @@
+<div class="page-header">
+    <h1>Status</h1>
+
+    <p>status for sent messages</p>
+</div>
+
+<div data-ng-controller="StatusViewCtrl" data-ng-init="init()">
+
+    <table class="table table-striped table-bordered table-condensed">
+
+        <tbody>
+        <tr>
+            <th scope="col" title="Firstname">User</th>
+            <th scope="col" title="Lastname">Message text</th>
+            <th scope="col" title="Phone number">Status</th>
+        </tr>
+        <tr ng-repeat="status in statuses">
+            <td>
+                {{ status.User.Name }}
+            </td>
+
+            <td>
+                {{ status.Message.Text }}
+            </td>
+            <td>
+                {{ status.Status.Success}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
