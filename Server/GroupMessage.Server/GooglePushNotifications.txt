@@ -1,2 +1,3 @@
 ﻿APIKey=
 SenderId=
+PackageName=
