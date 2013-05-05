@@ -1,7 +1,6 @@
 ﻿using System;
 using GroupMessage.Server.Data;
 using GroupMessage.Server.Model;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 
@@ -25,14 +24,9 @@ namespace GroupMessage.Server.Repository
             throw new NotImplementedException();
         }
 
-        public override void Create(User entity) 
-        {
-            base.Create(entity.Normalized());
-        }
-
         public User GetByPhoneNumber(string phoneNumber)
         {
-            var entityQuery = Query<User>.EQ(user => user.PhoneNumber, phoneNumber);
+            var entityQuery = Query<User>.EQ(user => user.PhoneNumber, User.NormalizePhoneNumber(phoneNumber));
             return this.MongoDb.EntityCollection.FindOne(entityQuery);
         }
 

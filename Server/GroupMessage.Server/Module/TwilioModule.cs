@@ -1,11 +1,6 @@
-using System.Linq;
 using GroupMessage.Server.Model;
 using GroupMessage.Server.Repository;
 using GroupMessage.Server.Service;
-using Nancy.ModelBinding;
-using MongoDB.Driver.Linq;
-using System.IO;
-using MongoDB.Driver.Builders;
 using System;
 using Nancy;
 using Nancy.Helpers;
@@ -17,7 +12,7 @@ namespace GroupMessage.Server.Module
     /// </summary>
     public class TwilioModule : ModuleBase
     {
-        public TwilioModule(MessageService _messageService, UserRepository _userRepository) : base("twilio")
+        public TwilioModule(MessageService messageService, UserRepository userRepository) : base("twilio")
         {
             Post ["/sms"] = parameters =>
             {
@@ -30,17 +25,17 @@ namespace GroupMessage.Server.Module
 
                 var senderNumber = map["From"];
 
-                var userQueryTemplate = new User{PhoneNumber=senderNumber}.Normalized(); // gets rid of the +45 in front of the Twilio sender number
-                if (_userRepository.GetByPhoneNumber(userQueryTemplate.PhoneNumber) == null) {
+                var userQueryTemplate = new User{PhoneNumber=senderNumber};
+                if (userRepository.GetByPhoneNumber(userQueryTemplate.PhoneNumber) == null) {
                     var newUser = new User{PhoneNumber=senderNumber};
-                    _userRepository.Create(newUser);
+                    userRepository.Create(newUser);
                 }
 
                 var status = map ["SmsStatus"];
                 if (status == "received")
                 {
                     var message = new Message{MessageId=Guid.NewGuid().ToString(), Text=smsBody };
-                    _messageService.initialSend(message);
+                    messageService.initialSend(message);
                 }
                 else
                 {

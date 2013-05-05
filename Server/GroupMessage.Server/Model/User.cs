@@ -16,9 +16,15 @@ namespace GroupMessage.Server.Model
 
     public class User : EntityBase
     {
+        private string _phoneNumber;
+
         public string Name { get; set; }
         public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber
+        {
+            get { return NormalizePhoneNumber(_phoneNumber); }
+            set { _phoneNumber = value; } 
+        }
         public string Email { get; set; }
         [BsonRepresentation(BsonType.String)]
         public DeviceOs DeviceOs { get; set; }
@@ -26,16 +32,14 @@ namespace GroupMessage.Server.Model
         public string DeviceToken { get; set; }
         public DateTime LastUpdate { get; set; }
 
-        public User Normalized() 
+        public static string NormalizePhoneNumber(string phoneNumber)
         {
-            NormalizePhoneNumber();
-            return this;
-        }
-
-        private void NormalizePhoneNumber()
-        {
-            PhoneNumber = Regex.Replace (PhoneNumber, @"\s+", "");
-            PhoneNumber = PhoneNumber.Substring (PhoneNumber.Length - 8, 8);
+            if (String.IsNullOrEmpty(phoneNumber))
+            {
+                return "";
+            }
+            var tempPhoneNumber = Regex.Replace(phoneNumber, @"\s+", "");
+            return tempPhoneNumber.Substring(tempPhoneNumber.Length - 8, 8);
         }
     }
 }
