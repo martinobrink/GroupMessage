@@ -235,7 +235,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GooglePushNoticications.txt" />
+    <Content Include="GooglePushNotifications.txt" />
     <Content Include="Twilio.txt">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
