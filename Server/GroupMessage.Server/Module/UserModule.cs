@@ -40,7 +40,7 @@ namespace GroupMessage.Server.Module
                 if (existingUser == null)
                 {
                     _userRepository.Create(user);
-                    return new Response().Create(HttpStatusCode.Created, user.AsJson());
+                    return new Response().Create(HttpStatusCode.Created, user.AsJson(), "application/json");
                 }
 
                 user.Id = existingUser.Id;

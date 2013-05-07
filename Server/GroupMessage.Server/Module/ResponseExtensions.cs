@@ -23,11 +23,17 @@ namespace GroupMessage.Server.Module
             return response;
         }
 
-
         public static Response Create(this Response response, HttpStatusCode statusCode, string body)
         {
+            return response.Create(statusCode, body, "text/plain");
+        }
+
+        public static Response Create(this Response response, HttpStatusCode statusCode, string body, string contentType)
+        {
             response.StatusCode = statusCode;
+            response.ContentType = contentType;
             return response.SetBody(body);
         }
+
     }
 }
