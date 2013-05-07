@@ -22,8 +22,8 @@ namespace GroupMessage.Server.Model
         public string LastName { get; set; }
         public string PhoneNumber
         {
-            get { return NormalizePhoneNumber(_phoneNumber); }
-            set { _phoneNumber = value; } 
+            get { return _phoneNumber; }
+            set { _phoneNumber = NormalizePhoneNumber(value); } 
         }
         public string Email { get; set; }
         [BsonRepresentation(BsonType.String)]
