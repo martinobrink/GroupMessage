@@ -1,17 +1,13 @@
-﻿using System.Linq;
-using GroupMessage.Server.Model;
-using GroupMessage.Server.Repository;
+﻿using GroupMessage.Server.Model;
 using GroupMessage.Server.Service;
+using Nancy;
 using Nancy.ModelBinding;
-using MongoDB.Driver.Linq;
-using System.IO;
-using MongoDB.Driver.Builders;
 
 namespace GroupMessage.Server.Module
 {
     public class MessageModule : ModuleBase
     {
-        public MessageModule (MessageService _messageService) : base("groupmessage")
+        public MessageModule(MessageService messageService) : base("groupmessage")
         {
             Put ["/message/{idInUrl}"] = parameters =>
             {
@@ -20,18 +16,10 @@ namespace GroupMessage.Server.Module
                 var message = this.Bind<Message> (); 
 
                 if (parameters ["idInUrl"] != message.MessageId) {
-                    return new Nancy.Response {
-                        ContentType = "text/plain",
-                        StatusCode = Nancy.HttpStatusCode.BadRequest,
-                        Contents = s =>  {
-                            var writer = new StreamWriter (s);
-                            writer.Write ("messageId in body must match messageId in URL");
-                            writer.Flush ();
-                        }
-                    };
+                    return new Response().Create(HttpStatusCode.BadRequest, "MessageId in body must match messageId in URL");
                 }
 
-                _messageService.initialSend(message);
+                messageService.initialSend(message);
 
                 return "";
             };
