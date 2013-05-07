@@ -52,7 +52,7 @@ namespace GroupMessage.Server.Service
                     sendStatus = new SendStatus { Success = true, ErrorMessage = "Unable to find MessageSender of correct type. Will not resend." };
                 }
 
-                sendStatus.NumberOfTries = messageStatus.Status.NumberOfTries++;
+                sendStatus.NumberOfTries = messageStatus.Status.NumberOfTries + 1;
                 messageStatus.Status = sendStatus;
                 _messageStatusRepository.Update(messageStatus);
             }
