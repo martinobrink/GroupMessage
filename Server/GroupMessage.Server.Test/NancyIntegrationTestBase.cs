@@ -44,6 +44,7 @@ namespace GroupMessage.Server.Test
                     with.Module<UserModule>();
 					with.Module<MessageModule>();
                     with.Module<TwilioModule>();
+                    with.Module<VersionModule>();
 
                     OnConfigureBootstrapper(with);
 			});

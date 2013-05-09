@@ -12,6 +12,11 @@ namespace GroupMessage.Server.Test.Module
             return serializer.Deserialize<TModel>(AsString(bodyWrapper));
         }
 
+        public static string AsStringNonNancy(this Nancy.Testing.BrowserResponseBodyWrapper body)
+        {
+            return System.Text.Encoding.UTF8.GetString(System.Linq.Enumerable.ToArray<byte>((IEnumerable<byte>)body));
+        }
+
         private static string AsString(Nancy.Testing.BrowserResponseBodyWrapper body)
         {
             return System.Text.Encoding.UTF8.GetString(System.Linq.Enumerable.ToArray<byte>((IEnumerable<byte>)body));
