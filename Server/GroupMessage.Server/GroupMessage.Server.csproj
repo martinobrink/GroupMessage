@@ -251,4 +251,7 @@
   -->
   <ItemGroup />
   <ItemGroup />
+  <PropertyGroup>
+    <PreBuildEvent>git describe --long --tags --dirty --always &gt; version.txt</PreBuildEvent>
+  </PropertyGroup>
 </Project>
