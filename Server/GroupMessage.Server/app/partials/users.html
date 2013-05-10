@@ -18,6 +18,7 @@
                 <th scope="col" title="Firstname">Firstname</th>
                 <th scope="col" title="Lastname">Lastname</th>
                 <th scope="col" title="Phone number">Phone number</th>
+                <th scope="col" title="App connected for push notifications">App connected</th>
                 <th scope="col" title="E-mail">E-mail</th>
                 <th scopw="col"/>
             </tr>
@@ -30,6 +31,9 @@
                 </td>
                 <td>
                     {{ user.PhoneNumber }}
+                </td>
+                <td>
+                    {{ user | deviceImage}}
                 </td>
                 <td>
                     {{ user.Email }}
