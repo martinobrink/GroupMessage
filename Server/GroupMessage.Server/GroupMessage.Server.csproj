@@ -236,6 +236,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\img\android.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\img\ios.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\img\notconnected.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="GooglePushNotifications.txt" />
     <Content Include="Twilio.txt">
       <SubType>Designer</SubType>

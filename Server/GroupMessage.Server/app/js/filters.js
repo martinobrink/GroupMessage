@@ -4,8 +4,16 @@
 
 angular.module('myApp.filters', [])
     .filter('deviceImage', function() {
-        return function(user) {
-            return user.DeviceToken ? '\u2713' : '\u2718';
+        return function (user) {
+            if (user.DeviceToken) {
+                if (user.DeviceOs == 1) {
+                    return 'img/android.png';
+                } else {
+                    return 'img/ios.png';
+                }
+            } else {
+                return 'img/notconnected.png';
+            }
         };
     })
     .filter('interpolate', ['version', function(version) {
