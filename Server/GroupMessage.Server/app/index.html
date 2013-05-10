@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <div class="container" ng-app="myApp">
+    <div class="container" ng-app="myApp" ng-controller="AppVersionCtrl">
 
         <!--Here go the partials -->
         <div ng-view>
@@ -57,7 +57,7 @@
         <!-- Footer -->
         <hr/>
         <footer>
-            <p>&copy; Trifork 2013 - {{ 'Version %VERSION%.' | interpolate }}</p>
+            <p>&copy; Trifork 2013 - Version {{ appVersion }} </p>
         </footer>
 
     </div>
