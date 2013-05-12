@@ -1,13 +1,13 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using Nancy.Json;
+using Newtonsoft.Json;
 
 namespace GroupMessage.Server.Model
 {
     public abstract class EntityBase : IEntity
     {
         [BsonId]
-        [ScriptIgnore]
+        [JsonIgnore]
         public ObjectId Id { get; set; }
     }
 }

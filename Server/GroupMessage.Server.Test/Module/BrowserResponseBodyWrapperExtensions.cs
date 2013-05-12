@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Nancy.Json;
+using Newtonsoft.Json;
 
 namespace GroupMessage.Server.Test.Module
 {
@@ -7,9 +7,7 @@ namespace GroupMessage.Server.Test.Module
     {
         public static TModel UnmarshallJson<TModel>(this Nancy.Testing.BrowserResponseBodyWrapper bodyWrapper)
         {
-            var serializer = new JavaScriptSerializer();
-
-            return serializer.Deserialize<TModel>(AsString(bodyWrapper));
+            return JsonConvert.DeserializeObject<TModel>(AsString(bodyWrapper));
         }
 
         public static string AsStringNonNancy(this Nancy.Testing.BrowserResponseBodyWrapper body)
