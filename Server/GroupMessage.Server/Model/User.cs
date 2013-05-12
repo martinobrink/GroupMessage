@@ -2,6 +2,8 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GroupMessage.Server.Model
 {
@@ -27,6 +29,7 @@ namespace GroupMessage.Server.Model
         }
         public string Email { get; set; }
         [BsonRepresentation(BsonType.String)]
+        [JsonConverter(typeof(StringEnumConverter))]
         public DeviceOs DeviceOs { get; set; }
         public string DeviceOsVersion { get; set; }
         public string DeviceToken { get; set; }

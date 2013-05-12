@@ -11,7 +11,7 @@ angular.module('myApp.filters', [])
     .filter('deviceImage', function () {
         return function (user) {
             if (user.DeviceToken) {
-                if (user.DeviceOs == 1) {
+                if (user.DeviceOs == 'Android') {
                     return 'img/android.png';
                 } else {
                     return 'img/ios.png';
