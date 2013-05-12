@@ -33,13 +33,12 @@
                     {{ user.PhoneNumber }}
                 </td>
                 <td>
-                    <img ng-src="{{ user | deviceImage}}" height="25" width="25"/>
+                    <img ng-src="{{ user | deviceImage}}" height="25" width="25" title="Device token: '{{ user.DeviceToken }}'"/>
                 </td>
                 <td>
                     {{ user.Email }}
                 </td>
                 <td>
-
                         <button ng-click="deleteUser(user.PhoneNumber)"><i class="icon-trash"></i></button>
                         <button ng-click="editUser(user)"><i class="icon-pencil"></i></button>
                 </td>
