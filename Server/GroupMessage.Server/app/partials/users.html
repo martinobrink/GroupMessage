@@ -20,6 +20,7 @@
                 <th scope="col" title="Phone number">Phone number</th>
                 <th scope="col" title="Phone app connected for push notifications">Phone app connected</th>
                 <th scope="col" title="E-mail">E-mail</th>
+                <th scope="col" title="Last update">Last update</th>
                 <th scopw="col"/>
             </tr>
             <tr ng-repeat="user in users">
@@ -37,6 +38,9 @@
                 </td>
                 <td>
                     {{ user.Email }}
+                </td>
+                <td>
+                    {{ user.LastUpdate | displayDate }}
                 </td>
                 <td>
                         <button ng-click="deleteUser(user.PhoneNumber)"><i class="icon-trash"></i></button>

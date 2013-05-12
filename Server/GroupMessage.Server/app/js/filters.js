@@ -3,7 +3,12 @@
 /* Filters */
 
 angular.module('myApp.filters', [])
-    .filter('deviceImage', function() {
+    .filter('displayDate', function () {
+        return function (dateString) {
+            return eval(dateString.replace(/\/Date\((\d+)\)\//gi, "new Date($1).toLocaleString('da-DK')"));
+        };
+    })
+    .filter('deviceImage', function () {
         return function (user) {
             if (user.DeviceToken) {
                 if (user.DeviceOs == 1) {
