@@ -106,9 +106,6 @@
     <None Include="app\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="app\css\.gitignore">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="app\css\app.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -124,7 +121,6 @@
     <None Include="app\css\bootstrap.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="app\img\.gitignore" />
     <None Include="app\img\glyphicons-halflings-white.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -227,7 +223,6 @@
     <None Include="app\lib\jquery\jquery.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="app\partials\.gitignore" />
     <None Include="app\partials\home.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
