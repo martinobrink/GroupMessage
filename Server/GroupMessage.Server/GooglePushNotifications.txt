@@ -1,3 +1,0 @@
-﻿APIKey=
-SenderId=
-PackageName=
