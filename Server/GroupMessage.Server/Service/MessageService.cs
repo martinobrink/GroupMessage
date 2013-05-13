@@ -10,18 +10,16 @@ namespace GroupMessage.Server.Service
     {
         private readonly IMessageSenderFactory _messageSenderFactory;
         private readonly UserRepository _userRepository;
-
         private readonly MessageStatusRepository _messageStatusRepository;
 
-        public MessageService (IMessageSenderFactory messageSenderFactory, UserRepository userRepository, MessageStatusRepository messageStatusRepository)
+        public MessageService(IMessageSenderFactory messageSenderFactory, UserRepository userRepository, MessageStatusRepository messageStatusRepository)
         {
             _messageSenderFactory = messageSenderFactory;
             _userRepository = userRepository;
-
             _messageStatusRepository = messageStatusRepository;
         }
 
-        public void initialSend(Message message) {
+        public void Send(Message message) {
             var users = _userRepository.Users.AsQueryable().ToList();
             var messageSenders = _messageSenderFactory.GetMessageSenders();
 

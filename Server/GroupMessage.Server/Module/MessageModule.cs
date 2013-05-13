@@ -1,28 +1,46 @@
 ﻿using GroupMessage.Server.Model;
+using GroupMessage.Server.Repository;
 using GroupMessage.Server.Service;
 using Nancy;
 using Nancy.ModelBinding;
+using MongoDB.Driver.Linq;
+using System.Linq;
 
 namespace GroupMessage.Server.Module
 {
     public class MessageModule : ModuleBase
     {
-        public MessageModule(MessageService messageService) : base("groupmessage")
+        private readonly MessageService _messageService;
+        private readonly MessageStatusRepository _messageStatusRepository;
+
+        public MessageModule(MessageService messageService, MessageStatusRepository messageStatusRepository) : base("groupmessage")
         {
+            _messageService = messageService;
+            _messageStatusRepository = messageStatusRepository;
+
             Put ["/message/{idInUrl}"] = parameters =>
             {
-                // TODO: Handle duplicate submissions of message with same id
-
                 var message = this.Bind<Message> (); 
 
-                if (parameters ["idInUrl"] != message.MessageId) {
-                    return new Response().Create(HttpStatusCode.BadRequest, "MessageId in body must match messageId in URL");
+                if (parameters["idInUrl"] != message.MessageId) {
+                    return new Response().Create(HttpStatusCode.BadRequest, "MessageId in body must match messageId in URL.");
                 }
 
-                messageService.initialSend(message);
+                if (MessageIdHasBeenUsedPreviously(message))
+                {
+                    return new Response().Create(HttpStatusCode.BadRequest, "MessageId has already been used.");
+                }
 
-                return "";
+                _messageService.Send(message);
+
+                return HttpStatusCode.OK;
             };
+        }
+
+        private bool MessageIdHasBeenUsedPreviously(Message message)
+        {
+            var messageStatuses = _messageStatusRepository.Statuses.AsQueryable().ToList();
+            return messageStatuses.Any(status => status.Message.MessageId == message.MessageId);
         }
     }
 }

@@ -1,4 +1,4 @@
-using GroupMessage.Server.Model;
+﻿using GroupMessage.Server.Model;
 using GroupMessage.Server.Repository;
 using GroupMessage.Server.Service;
 using System;
@@ -35,7 +35,7 @@ namespace GroupMessage.Server.Module
                 if (status == "received")
                 {
                     var message = new Message{MessageId=Guid.NewGuid().ToString(), Text=smsBody };
-                    messageService.initialSend(message);
+                    messageService.Send(message);
                 }
                 else
                 {
