@@ -25,7 +25,7 @@ namespace GroupMessage.Server.Test.Module
         }
 
         [Test]
-        public void PUT_ShouldSendMessageToAllUsersInDatabase()
+        public void PUT_ShouldReturnStatusOKAndSendMessageToAllUsersInDatabase()
         {
             // ARRANGE
             ConfigureMessageSendersToReturn(new[] {_succeedingTwilioMessageSenderMock});
@@ -41,7 +41,7 @@ namespace GroupMessage.Server.Test.Module
         }
 
         [Test]
-		public void PUT_IdMismatch_ShouldReturnBadRequest()
+		public void PUT_IdMismatch_ShouldReturnStatusBadRequest()
 		{
 			// ARRANGE
 			var message = new Message { MessageId = "1234", Text = "SomeMessage" };
@@ -55,12 +55,12 @@ namespace GroupMessage.Server.Test.Module
 		}
 
         [Test]
-        public void PUT_AnIdAlreadyUsed_ShouldReturnBadRequest()
+        public void PUT_AnIdAlreadyUsed_ShouldReturnStatusBadRequest()
         {
             // ARRANGE
             ConfigureMessageSendersToReturn(new[] { _succeedingTwilioMessageSenderMock });
             var message = new Message { MessageId = "1234", Text = "SomeMessage" };
-            Browser.Put("/groupmessage/message/" + message.MessageId, message.AsJson());//use id
+            Browser.Put("/groupmessage/message/" + message.MessageId, message.AsJson());//ensure id has been used
             var otherMessageWithSameId = new Message { MessageId = "1234", Text = "SomeOtherMessage" };
             
             // ACT
