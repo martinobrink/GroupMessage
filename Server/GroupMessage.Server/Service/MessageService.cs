@@ -36,7 +36,7 @@ namespace GroupMessage.Server.Service
                 }
             }
 
-            var messageStatuses = _messageStatusRepository.Statuses.AsQueryable<MessageStatus>().Where(s => s.Message.Id == message.Id && s.Status.NumberOfTries == 0);
+            var messageStatuses = _messageStatusRepository.Statuses.AsQueryable<MessageStatus>().Where(s => s.Message.MessageId == message.MessageId && s.Status.NumberOfTries == 0);
             foreach (var messageStatus in messageStatuses) 
             {
                 var messageSender = messageSenders.SingleOrDefault(sender => sender.SenderType == messageStatus.Type);

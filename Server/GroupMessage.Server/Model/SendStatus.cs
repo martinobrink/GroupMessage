@@ -1,8 +1,8 @@
-using System;
+using GroupMessage.Server.Model;
 
 namespace GroupMessage.Server
 {
-    public class SendStatus
+    public class SendStatus : EntityBase
     {
         public int NumberOfTries {get; set;}
         public bool Success {get; set;}
