@@ -1,6 +1,9 @@
-using System;
 using GroupMessage.Server.Communication;
 using GroupMessage.Server.Model;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GroupMessage.Server
 {
@@ -12,6 +15,8 @@ namespace GroupMessage.Server
         public User User { get; set; }
         public Message Message { get; set; }
         public SendStatus Status { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        [JsonConverter(typeof(StringEnumConverter))]
         public MessageSenderType Type { get; set; }
 
         public MessageStatus() 
