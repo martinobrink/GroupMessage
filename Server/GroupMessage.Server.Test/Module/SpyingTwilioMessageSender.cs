@@ -26,13 +26,13 @@ namespace GroupMessage.Server.Test.Module
             private set;
         }
 
-        public SpyingTwilioMessageSender ()
+        public SpyingTwilioMessageSender()
         {
             Users = new List<User>();
             Texts = new List<String>();
         }
 
-        SendStatus IMessageSender.Send (GroupMessage.Server.Model.User user, string text)
+        SendStatus IMessageSender.Send(GroupMessage.Server.Model.User user, string text)
         {
             Users.Add(user);
             Texts.Add(text);
