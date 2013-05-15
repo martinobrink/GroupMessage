@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using GroupMessage.Server.Model;
 using Newtonsoft.Json;
+using RestSharp;
 
 namespace GroupMessage.Server.Communication
 {
@@ -70,18 +69,16 @@ namespace GroupMessage.Server.Communication
 
         private SendStatus SendGooglePushNotification(User user, string text)
         {
-            string jsonData = @"{ ""registration_ids"": [""" + user.DeviceToken + "\"], \"data\":  { \"Message\": \"" + text + "\", \"Group\": \"All\" } }";
-            var httpClient = new HttpClient();
-            var requestMessage = new HttpRequestMessage(HttpMethod.Post, "https://android.googleapis.com/gcm/send");
-            requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("key", string.Format("={0}", _googleApiKey));
-            requestMessage.Content = new StringContent(jsonData);
-            requestMessage.Content.Headers.ContentType.MediaType = "application/json";
-
-            var responseMessage = httpClient.SendAsync(requestMessage).Result;
-            var result = responseMessage.Content.ReadAsStringAsync().Result;
-            var pushNotificationResult = JsonConvert.DeserializeObject<GooglePushNotificationResult>(result);
-
+            var client = new RestClient("https://android.googleapis.com");
+            var request = new RestRequest("gcm/send", Method.POST);
+            var jsonData = @"{ ""registration_ids"": [""" + user.DeviceToken + "\"], \"data\":  { \"Message\": \"" + text + "\", \"Group\": \"All\" } }";
+            request.AddParameter("application/json", jsonData, ParameterType.RequestBody);
+            request.AddHeader("Accept", "application/json");
+            request.AddHeader("Authorization", string.Format("key={0}", _googleApiKey));
+            var response = client.Execute(request);
+            var responseContent = response.Content;
+            var pushNotificationResult = JsonConvert.DeserializeObject<GooglePushNotificationResult>(responseContent);
+            
             return new SendStatus
                 {
                     Success = pushNotificationResult.success,
