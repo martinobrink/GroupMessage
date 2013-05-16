@@ -10,6 +10,7 @@
 
         <tbody>
         <tr>
+            <th scope="col" title="Timestamp">Time</th>
             <th scope="col" title="Firstname">User</th>
             <th scope="col" title="Lastname">Message text</th>
             <th scope="col" title="Phone number">Status</th>
@@ -17,6 +18,10 @@
             <th scope="col" title="Error">Error</th>
         </tr>
         <tr ng-repeat="status in statuses">
+            <td>
+                {{ status.Timestamp | displayDate }}
+            </td>
+
             <td>
                 {{ status.User.Name + ' [' + status.User.PhoneNumber + ']' }}
             </td>
