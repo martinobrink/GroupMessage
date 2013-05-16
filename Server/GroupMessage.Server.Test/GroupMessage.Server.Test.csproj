@@ -76,7 +76,6 @@
     <Compile Include="NancyIntegrationTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Module\MessageModuleTest.cs" />
-    <Compile Include="Module\SpyingTwilioMessageSender.cs" />
     <Compile Include="RealWorldScripts\SendTwilioMessage.cs" />
     <Compile Include="Module\TwilioModuleTest.cs" />
     <Compile Include="Model\UserTest.cs" />
