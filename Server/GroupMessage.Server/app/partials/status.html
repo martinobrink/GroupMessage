@@ -18,7 +18,7 @@
         </tr>
         <tr ng-repeat="status in statuses">
             <td>
-                {{ status.User.Name }}
+                {{ status.User.Name + ' [' + status.User.PhoneNumber + ']' }}
             </td>
 
             <td>
