@@ -1,3 +1,4 @@
+using System;
 using GroupMessage.Server.Communication;
 using GroupMessage.Server.Repository;
 using GroupMessage.Server.Model;
@@ -29,15 +30,16 @@ namespace GroupMessage.Server.Service
                 {
                     _messageStatusRepository.Create(new MessageStatus
                         {
-                            Type = messageSender.SenderType,
+                            User = user,
                             Message = message,
-                            User = user
+                            Type = messageSender.SenderType,
+                            Timestamp = DateTime.Now
                         });
                 }
             }
 
-            var messageStatuses = _messageStatusRepository.Statuses.AsQueryable<MessageStatus>().Where(s => s.Message.MessageId == message.MessageId && s.Status.NumberOfTries == 0);
-            foreach (var messageStatus in messageStatuses) 
+            var messageStatusesToProcess = _messageStatusRepository.Statuses.AsQueryable<MessageStatus>().Where(s => s.Message.MessageId == message.MessageId && s.Status.NumberOfTries == 0);
+            foreach (var messageStatus in messageStatusesToProcess) 
             {
                 var messageSender = messageSenders.SingleOrDefault(sender => sender.SenderType == messageStatus.Type);
                 SendStatus sendStatus;
@@ -52,6 +54,7 @@ namespace GroupMessage.Server.Service
 
                 sendStatus.NumberOfTries = messageStatus.Status.NumberOfTries + 1;
                 messageStatus.Status = sendStatus;
+                messageStatus.Timestamp = DateTime.Now;
                 _messageStatusRepository.Update(messageStatus);
             }
         }

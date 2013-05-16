@@ -1,4 +1,3 @@
-using System;
 using Nancy;
 using GroupMessage.Server.Repository;
 using GroupMessage.Server.Module;
