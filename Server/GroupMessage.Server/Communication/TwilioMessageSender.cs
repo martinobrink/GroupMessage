@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using GroupMessage.Server.Model;
 using Twilio;
 
 namespace GroupMessage.Server.Communication

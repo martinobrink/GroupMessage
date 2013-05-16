@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GroupMessage.Server
+namespace GroupMessage.Server.Model
 {
     /// <summary>
     /// Represents the status for all of the sending transactions for one Message 

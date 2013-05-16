@@ -1,6 +1,4 @@
-using GroupMessage.Server.Model;
-
-namespace GroupMessage.Server
+namespace GroupMessage.Server.Model
 {
     public class SendStatus : EntityBase
     {
