@@ -48,6 +48,9 @@ AccountSID=VH1n387j36d52248e7f62b052a475482a3
 AuthToken=34as3f0425b2413fd9d08ca4cd142x25
 SenderNumber=+1987-654-3210
 
+Obviously these specific values do not work and should be replaced with your 
+own values obtained from Twilio.
+
 For sending push notifications to Android devices using Google's GCM service,
 the Google account details must be placed in the missing 
 GooglePushNotifications.txt file. This file should also be placed directly 
@@ -58,5 +61,8 @@ APIKey=FJehJbbGMqTThsCKtEF8BXhkUmwuIKLcYZpkvu9mB
 SenderId=123456789123
 PackageName=com.your.package.name
 
+Again, these specific values do not work and should be replaced with your 
+own values obtained from Google Apis Console.
+
 Remember to also set these values in the source code within the Android 
-client app.
+client app so the server and the client are connected by using the same keys.
